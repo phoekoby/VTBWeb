@@ -4,6 +4,7 @@ import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
+import ru.vtb.integrationmodule.entity.user.User;
 
 import javax.persistence.*;
 

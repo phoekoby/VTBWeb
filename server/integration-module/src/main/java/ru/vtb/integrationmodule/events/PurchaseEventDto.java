@@ -12,5 +12,5 @@ import java.io.Serializable;
 @NoArgsConstructor
 @Builder
 public class PurchaseEventDto implements Serializable {
-    private Long id;
+    private Long purchaseId;
 }

@@ -4,6 +4,7 @@ package ru.vtb.integrationmodule.entity;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
+import ru.vtb.integrationmodule.entity.user.User;
 
 import javax.persistence.*;
 

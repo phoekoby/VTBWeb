@@ -1,5 +1,6 @@
 package ru.vtb.integrationmodule.events;
 
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -11,6 +12,6 @@ import java.io.Serializable;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class TransactionEventDto implements Serializable {
-    private Long transactionId;
+public class ExchangeEventDto implements Serializable {
+    private Long exchangeId;
 }

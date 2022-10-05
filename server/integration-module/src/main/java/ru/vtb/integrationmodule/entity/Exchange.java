@@ -1,9 +1,9 @@
 package ru.vtb.integrationmodule.entity;
 
+
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
-import lombok.ToString;
 import ru.vtb.integrationmodule.entity.user.User;
 
 import javax.persistence.*;
@@ -11,26 +11,19 @@ import javax.persistence.*;
 @Entity
 @Getter
 @Setter
-@ToString
 @RequiredArgsConstructor
-public class Purchase extends BaseEntity{
-
-    @OneToOne
-    @JoinColumn(name = "prev_owner_user_id")
-    private User prevOwnerUser;
-
-    @OneToOne
-    @JoinColumn(name = "buyer_user_id")
-    private User buyerUser;
+public class Exchange extends BaseEntity{
 
     @ManyToOne
-    @JoinColumn(name = "product_id")
-    private Product product;
+    @JoinColumn(name = "user_id")
+    private User user;
 
-    @Column(name = "cost")
-    private Double cost;
+    @Column(name = "amount")
+    private Double amount;
 
     @Column(name = "transaction_status")
     @Enumerated(EnumType.STRING)
     private TransactionStatus transactionStatus;
+
+
 }

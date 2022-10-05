@@ -1,8 +1,12 @@
-package ru.vtb.integrationmodule.entity;
+package ru.vtb.integrationmodule.entity.user;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
+import ru.vtb.integrationmodule.entity.Exchange;
+import ru.vtb.integrationmodule.entity.Product;
+import ru.vtb.integrationmodule.entity.Wallet;
+import ru.vtb.integrationmodule.entity.courses.UserCourse;
 
 import javax.persistence.*;
 import java.util.Collection;
@@ -43,9 +47,11 @@ public class User {
     private Wallet wallet;
 
 
+    @OneToMany(mappedBy = "user")
+    private List<UserCourse> userCourses;
 
-
-
+    @OneToMany(mappedBy = "user")
+    private List<Exchange> exchanges;
 
 
 }

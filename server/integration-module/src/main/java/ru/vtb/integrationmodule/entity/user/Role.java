@@ -1,8 +1,9 @@
-package ru.vtb.integrationmodule.entity;
+package ru.vtb.integrationmodule.entity.user;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
+import ru.vtb.integrationmodule.entity.BaseEntity;
 
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
@@ -14,7 +15,7 @@ import java.util.Collection;
 @Getter
 @Setter
 @RequiredArgsConstructor
-public class Role extends BaseEntity{
+public class Role extends BaseEntity {
 
     private String name;
     @ManyToMany(mappedBy = "roles")

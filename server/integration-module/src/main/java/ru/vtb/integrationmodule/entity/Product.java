@@ -4,6 +4,7 @@ package ru.vtb.integrationmodule.entity;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
+import ru.vtb.integrationmodule.entity.user.User;
 
 import javax.persistence.*;
 import java.util.List;
@@ -21,8 +22,11 @@ public class Product extends BaseEntity{
     @Column(name = "name")
     private String name;
 
-    @Column(name = "pictureUrl")
-    private String pictureUrl;
+    @ManyToMany
+    @JoinTable(name = "product_pictures",
+    joinColumns = @JoinColumn(name = "product_id"),
+    inverseJoinColumns = @JoinColumn(name = "product_id"))
+    private List<Picture> pictures;
 
     @Column(name = "cost")
     private Double cost;
