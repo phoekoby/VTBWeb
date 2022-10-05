@@ -5,6 +5,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.ComponentScan;
 
 @SpringBootApplication
+@ComponentScan(basePackages = {"ru.vtb.serverrpcmicroservice", "ru.vtb.integrationmodule"})
 public class ServerRpcMicroserviceApplication {
 
     public static void main(String[] args) {
