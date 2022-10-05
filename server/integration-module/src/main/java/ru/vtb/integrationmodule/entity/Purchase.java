@@ -1,4 +1,4 @@
-package ru.vtb.integreationmodule.entity;
+package ru.vtb.integrationmodule.entity;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
@@ -28,4 +28,8 @@ public class Purchase extends BaseEntity{
 
     @Column(name = "cost")
     private Double cost;
+
+    @Column(name = "transaction_status")
+    @Enumerated(EnumType.STRING)
+    private TransactionStatus transactionStatus;
 }

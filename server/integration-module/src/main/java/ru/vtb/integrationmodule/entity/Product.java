@@ -1,10 +1,9 @@
-package ru.vtb.integreationmodule.entity;
+package ru.vtb.integrationmodule.entity;
 
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
-import lombok.ToString;
 
 import javax.persistence.*;
 import java.util.List;
@@ -12,7 +11,6 @@ import java.util.List;
 @Entity
 @Getter
 @Setter
-@ToString
 @RequiredArgsConstructor
 public class Product extends BaseEntity{
 

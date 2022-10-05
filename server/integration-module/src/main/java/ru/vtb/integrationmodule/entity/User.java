@@ -1,6 +1,8 @@
-package ru.vtb.integreationmodule.entity;
+package ru.vtb.integrationmodule.entity;
 
-import lombok.*;
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.*;
 import java.util.Collection;
@@ -9,7 +11,6 @@ import java.util.List;
 @Entity
 @Getter
 @Setter
-@ToString
 @RequiredArgsConstructor
 public class User {
     @Id
@@ -36,5 +37,15 @@ public class User {
             inverseJoinColumns = @JoinColumn(
                     name = "role_id", referencedColumnName = "id"))
     private Collection<Role> roles;
+
+
+    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL, optional = false)
+    private Wallet wallet;
+
+
+
+
+
+
 
 }
