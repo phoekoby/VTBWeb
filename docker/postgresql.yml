@@ -1,0 +1,25 @@
+version: '3.8'
+services:
+  postgresql-vtb-web-db:
+    container_name: postgresql-vtb-web-db
+    image: postgres:latest
+    environment:
+      POSTGRES_DB: "VTB_web_dev"
+      POSTGRES_USER: "vtb_web_dev_user"
+      POSTGRES_PASSWORD: "qwerty"
+    ports:
+      - "5432:5432"
+    volumes:
+      - ./db/init.sql:/docker-entry-point-initdb.d/init.sql
+  adminer-postgresql-vtb-web-db:
+    container_name: adminer-postgresql-vtb-web-db
+    image: dpage/pgadmin4
+    restart: on-failure
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@admin.ru
+      PGADMIN_DEFAULT_PASSWORD: admin
+    ports:
+      - 127.0.0.1:5050:80
+
+
+
