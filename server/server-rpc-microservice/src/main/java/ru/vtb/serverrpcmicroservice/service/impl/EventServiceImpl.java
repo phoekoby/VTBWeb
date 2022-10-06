@@ -40,9 +40,9 @@ public class EventServiceImpl implements EventService {
                     purchase.setPrevOwnerUser(product.getOwner());
                     product.setOwner(purchase.getBuyerUser());
                     //поменяли кол-во у покупателя и добавили сущности для истории
-                    changeBalance(buyerUserWallet, -productCost, TransactionType.TRANSACTION);
+                    changeBalance(buyerUserWallet, -productCost, TransactionType.PURCHASE);
                     //поменяли кол-вл у продавца и добавили сущность для истории
-                    changeBalance(productOwnerWallet, productCost, TransactionType.TRANSACTION);
+                    changeBalance(productOwnerWallet, productCost, TransactionType.PURCHASE);
                     //пометили как завершенную и отправили уведомление клиенту
                     purchase.setTransactionStatus(TransactionStatus.COMPLETED);
                     purchaseRepository.save(purchase);
