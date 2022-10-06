@@ -24,5 +24,9 @@ public class Course extends BaseEntity {
     private Integer order;
 
     @Column(name = "course_prize")
+    private Double coursePrize;
+
+    //maybe?
+    @Column(name = "course_prise")
     private Double coursePrise;
 }

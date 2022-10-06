@@ -18,4 +18,5 @@ public class TransactionStatusChangedEventDto implements Serializable {
     private TransactionType transactionType;
     private TransactionStatus prevStatus;
     private TransactionStatus currStatus;
+    private String reason;
 }

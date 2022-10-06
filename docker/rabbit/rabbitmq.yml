@@ -2,7 +2,7 @@ version: '3.8'
 services:
   rabbit-mq-vtb-web:
     container_name: rabbit-mq-vtb-web
-    image: bitnami/rabbitmq:latest
+    image: bitnami/rabbitmq:3-management
     ports:
       - '15672:15672'
     volumes:

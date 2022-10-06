@@ -25,4 +25,10 @@ public class HazelCastConfig {
         IMap<Long, Long> userMap = hazelcastInstance.getMap("userMap");
         return new CustomISet<>(userMap, 1, TimeUnit.MINUTES);
     }
+
+    @Bean
+    public CustomISet<Long> productSet(HazelcastInstance hazelcastInstance){
+        IMap<Long, Long> productMap = hazelcastInstance.getMap("productMap");
+        return new CustomISet<>(productMap, 1, TimeUnit.MINUTES);
+    }
 }

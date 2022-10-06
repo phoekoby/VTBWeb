@@ -14,7 +14,7 @@ public class TransactionStatusChangedConsumer {
     @SneakyThrows
     @RabbitListener(
             id = "WalletBalanceChangedMessageListener",
-            queues = "ru.vtb.qu.wallet.balance.changed",
+            queues = "ru.vtb.qu.event.transaction.status.changed",
             containerFactory = "vtbMessageListenerContainer"
     )
     public void onMessage(WalletBalanceChangedEventDto walletBalanceChangedEventDto){

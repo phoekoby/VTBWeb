@@ -12,5 +12,7 @@ import java.io.Serializable;
 @NoArgsConstructor
 @Builder
 public class WalletBalanceChangedEventDto implements Serializable {
-    private Long walletBalanceChangedId;
+    private Long walletId;
+    private TransactionType transactionType;
+    private Double changeAmount;
 }

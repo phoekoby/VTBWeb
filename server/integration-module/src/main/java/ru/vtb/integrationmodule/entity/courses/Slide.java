@@ -38,6 +38,7 @@ public class Slide extends BaseEntity {
     @Enumerated(EnumType.STRING)
     private SlideType slideType;
 
+    //нужно ли?
     @Column(name = "slide_prize")
     private Double slidePrize;
 }
