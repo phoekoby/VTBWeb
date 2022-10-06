@@ -13,4 +13,5 @@ import java.io.Serializable;
 @Builder
 public class UserCourseProcessingChangedEventDto implements Serializable {
     private Long userCourseId;
+    private Long userId;
 }

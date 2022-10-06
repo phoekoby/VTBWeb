@@ -13,4 +13,7 @@ import java.io.Serializable;
 @Builder
 public class PurchaseEventDto implements Serializable {
     private Long purchaseId;
+    private Long buyerUserId;
+    private Long ownerUserId;
+    private Long productId;
 }

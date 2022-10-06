@@ -7,6 +7,7 @@ import lombok.Setter;
 import ru.vtb.integrationmodule.entity.user.User;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Getter
@@ -20,4 +21,7 @@ public class Wallet extends BaseEntity{
     @OneToOne(optional = false)
     @JoinColumn(name = "user_id")
     private User user;
+
+    @OneToMany(mappedBy = "wallet")
+    private List<WalletBalanceChanged> walletBalanceChanges;
 }
