@@ -24,7 +24,7 @@ public class Product extends BaseEntity{
 
     @ManyToMany
     @JoinTable(name = "product_pictures",
-    joinColumns = @JoinColumn(name = "product_id"),
+    joinColumns = @JoinColumn(name = "picture_id"),
     inverseJoinColumns = @JoinColumn(name = "product_id"))
     private List<Picture> pictures;
 

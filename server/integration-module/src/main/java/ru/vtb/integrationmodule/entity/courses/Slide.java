@@ -23,13 +23,13 @@ public class Slide extends BaseEntity {
 
     @ManyToMany
     @JoinTable(name = "slides_pictures",
-    joinColumns = @JoinColumn(name = "picture_id"),
-    inverseJoinColumns = @JoinColumn(name = "slide_id"))
+    joinColumns = @JoinColumn(name = "slide_id"),
+    inverseJoinColumns = @JoinColumn(name = "picture_id"))
     private List<Picture> pictureList;
 
     @ManyToOne
     @JoinColumn(name = "course_id")
-    private Course content;
+    private Course course;
 
     @Column(name = "order")
     private Integer order;
