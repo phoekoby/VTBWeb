@@ -15,7 +15,7 @@ public class WalletBalanceChangedConsumer {
     @RabbitListener(
             id = "WalletBalanceChangedMessageListener",
             queues = "ru.vtb.qu.transaction.status.changed",
-            containerFactory = "proactiveMessageListenerContainer"
+            containerFactory = "vtbMessageListenerContainer"
     )
     public void onMessage(TransactionStatusChangedEventDto transactionStatusChangedEventDto){
         //как то уведомлять пользователя

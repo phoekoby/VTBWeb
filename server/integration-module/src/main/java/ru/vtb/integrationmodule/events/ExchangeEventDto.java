@@ -14,4 +14,6 @@ import java.io.Serializable;
 @Builder
 public class ExchangeEventDto implements Serializable {
     private Long exchangeId;
+    private Long fromUserId;
+    private Long toUserId;
 }
