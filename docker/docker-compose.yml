@@ -5,7 +5,8 @@ services:
     ports:
       - "8080:8080"
     environment:
-      - "SPRING_PROFILES_ACTIVE=dev"
+      - SPRING_PROFILES_ACTIVE="default"
+      - SPRING_CLOUD_CONFIG_URI=http://configserver:8765
     networks:
       server:
         aliases:
@@ -15,11 +16,17 @@ services:
     ports:
       - "8080:8080"
     environment:
-      - "SPRING_PROFILES_ACTIVE=dev"
+      - SPRING_PROFILES_ACTIVE="default"
+      - SPRING_CLOUD_CONFIG_URI=http://configserver:8765
     networks:
       server:
         aliases:
           - 'rpc-server'
+  vtb-configuration-server:
+    image: vtb-config/configuration:0.0.1-SNAPSHOT
+    ports:
+      - "8765:8765"
+
 networks:
   server:
     driver: bridge
