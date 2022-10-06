@@ -11,6 +11,8 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 @EnableJpaRepositories(value="ru.vtb.integrationmodule.repo")
 @EntityScan(basePackages = "ru.vtb.integrationmodule.entity")
 @ComponentScan(basePackages = {"ru.vtb.serverrpcmicroservice", "ru.vtb.integrationmodule"})
+@EnableJpaRepositories("ru.vtb.integrationmodule.repo")
+@EntityScan(basePackages = "ru.vtb.integrationmodule.entity")
 public class ServerRpcMicroserviceApplication {
 
     public static void main(String[] args) {
