@@ -12,7 +12,7 @@ import java.util.List;
 @Setter
 @Builder
 @AllArgsConstructor
-@NoArgsConstructor
+//@NoArgsConstructor
 @RequiredArgsConstructor
 public class User extends BaseEntity {
 
