@@ -90,12 +90,6 @@
             <artifactId>spring-integration-test</artifactId>
             <scope>test</scope>
         </dependency>
-        <dependency>
-            <groupId>ru.vtb.phoekoby</groupId>
-            <artifactId>integration-module</artifactId>
-            <version>1.0-SNAPSHOT</version>
-        </dependency>
-
 
     </dependencies>
 
