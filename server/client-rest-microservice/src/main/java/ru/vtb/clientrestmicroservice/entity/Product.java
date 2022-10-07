@@ -4,7 +4,6 @@ package ru.vtb.clientrestmicroservice.entity;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
-import ru.vtb.clientrestmicroservice.entity.user.User;
 
 import javax.persistence.*;
 import java.util.List;
@@ -15,9 +14,8 @@ import java.util.List;
 @RequiredArgsConstructor
 public class Product extends BaseEntity{
 
-    @ManyToOne
-    @JoinColumn(name = "owner_user_id")
-    private User owner;
+    @Column(name = "owner_user_id")
+    private Long ownerUserId;
 
     @Column(name = "name")
     private String name;
@@ -29,7 +27,7 @@ public class Product extends BaseEntity{
     private List<Picture> pictures;
 
     @Column(name = "cost")
-    private Double cost;
+    private Integer cost;
 
     @OneToMany(mappedBy = "product")
     private List<Purchase> purchases;

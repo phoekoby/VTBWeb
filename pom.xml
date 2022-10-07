@@ -19,9 +19,9 @@
     </properties>
 
     <modules>
+        <module>configuration</module>
         <module>client</module>
         <module>server</module>
-        <module>configuration</module>
     </modules>
 
 </project>
