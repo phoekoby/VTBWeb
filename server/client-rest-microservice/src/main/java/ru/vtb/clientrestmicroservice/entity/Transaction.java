@@ -7,6 +7,7 @@ import lombok.ToString;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
 
@@ -21,5 +22,10 @@ public class Transaction extends BaseEntity{
     private String transactionHash;
 
     @ManyToOne
-    private Wallet wallet;
+    @JoinColumn(name = "from_wallet_id")
+    private Wallet fromWallet;
+
+    @ManyToOne
+    @JoinColumn(name = "to_wallet_id")
+    private Wallet toWallet;
 }

@@ -9,3 +9,4 @@ spring:
     username: foo
     password: bar
     driverClassName: org.postgresql.Driver
+base.url: https://hackathon.lsp.team/hk/v1/

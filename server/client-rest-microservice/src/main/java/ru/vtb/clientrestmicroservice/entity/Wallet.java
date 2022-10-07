@@ -25,6 +25,11 @@ public class Wallet extends BaseEntity{
     @Column(name = "user_id")
     private Long userId;
 
-    @OneToMany
-    private List<Transaction> transactions;
+    @OneToMany(mappedBy = "fromWallet")
+    private List<Transaction> outputTransactions;
+
+    @OneToMany(mappedBy = "toWallet")
+    private List<Transaction> inputTransaction;
+
+
 }
