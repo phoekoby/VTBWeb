@@ -19,5 +19,6 @@ public class Transaction extends BaseEntity{
     private String transactionHash;
 
     @ManyToOne
+    @JoinColumn(name = "wallet_id")
     private Wallet wallet;
 }

@@ -25,6 +25,6 @@ public class Wallet extends BaseEntity{
     @JoinColumn(name = "user_id")
     private User user;
 
-    @OneToMany
+    @OneToMany(mappedBy = "wallet")
     private List<Transaction> notCompletedTransactions;
 }

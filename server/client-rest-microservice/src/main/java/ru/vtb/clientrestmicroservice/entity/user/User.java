@@ -8,7 +8,6 @@ import ru.vtb.clientrestmicroservice.entity.Product;
 import ru.vtb.clientrestmicroservice.entity.Purchase;
 import ru.vtb.clientrestmicroservice.entity.Wallet;
 import ru.vtb.clientrestmicroservice.entity.courses.UserCourse;
-import ru.vtb.integrationmodule.entity.*;
 
 import javax.persistence.*;
 import java.util.Collection;

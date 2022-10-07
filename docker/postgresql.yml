@@ -9,8 +9,8 @@ services:
       POSTGRES_PASSWORD: "qwerty"
     ports:
       - "5432:5432"
-#    volumes:
-#      - ./db/init.sql:/docker-entry-point-initdb.d/init.sql
+    volumes:
+      - ./db/init.sql:/docker-entry-point-initdb.d/init.sql
   adminer-postgresql-vtb-web-db:
     container_name: adminer-postgresql-vtb-web-db
     image: dpage/pgadmin4
