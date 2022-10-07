@@ -1,0 +1,33 @@
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.card{
+    padding: 5px;
+}
+
+.header{
+    margin: auto;
+}
+
+.form{
+    display: flex;
+    flex-direction: column;
+}
+
+.placeholder {
+    margin-top: 10px;
+}
+
+.loginButton {
+    align-self: end;
+}
+
+.formRow{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin-top: 10px;
+}

@@ -1,0 +1,43 @@
+.row {
+    display: flex;
+}
+
+.productItem {
+    width: 150px;
+    cursor: pointer;
+    border: black;
+}
+
+.image {
+    width: 150px;
+    height: 150px;
+}
+
+.info {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 8px;
+}
+
+.coin {
+    width: 15px;
+    height: 15px;
+    margin-left: 1px;
+}
+
+.price {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.text {
+    font-size: 16px;
+    font-weight: 500;
+}
+
+.column {
+    margin-top: 20px;
+}

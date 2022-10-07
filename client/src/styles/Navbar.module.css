@@ -1,0 +1,19 @@
+.navbar {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.button {
+    margin-left: 5px;
+    color: white;
+}
+
+.buttonList {
+
+}
+
+.logo {
+    margin-left: 2px;
+    color: white;
+}
