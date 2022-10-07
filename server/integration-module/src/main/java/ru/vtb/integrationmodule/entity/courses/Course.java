@@ -17,7 +17,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class Course extends BaseEntity {
 
-    @OneToMany(mappedBy = "content")
+    @OneToMany(mappedBy = "course")
     private List<Slide> slides;
 
     @Column(name = "order")

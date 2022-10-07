@@ -1,0 +1,32 @@
+version: '3.8'
+services:
+  vtb-server-rpc:
+    image: vtb-rpc/server-rpc-microservice:0.0.1-SNAPSHOT
+    ports:
+      - "8080:8080"
+    environment:
+      - SPRING_PROFILES_ACTIVE="default"
+      - SPRING_CLOUD_CONFIG_URI=http://configserver:8765
+    networks:
+      server:
+        aliases:
+          - 'rpc-server'
+  vtb-server-rest:
+    image: vtb-rest/client-rest-microservice:0.0.1-SNAPSHOT
+    ports:
+      - "8080:8080"
+    environment:
+      - SPRING_PROFILES_ACTIVE="default"
+      - SPRING_CLOUD_CONFIG_URI=http://configserver:8765
+    networks:
+      server:
+        aliases:
+          - 'rpc-server'
+  vtb-configuration-server:
+    image: vtb-config/configuration:0.0.1-SNAPSHOT
+    ports:
+      - "8765:8765"
+
+networks:
+  server:
+    driver: bridge

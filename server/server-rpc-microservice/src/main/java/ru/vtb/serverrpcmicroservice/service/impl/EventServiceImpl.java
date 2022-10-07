@@ -22,6 +22,7 @@ import java.util.Optional;
 public class EventServiceImpl implements EventService {
     private final TransactionRepository transactionRepository;
     private final PurchaseRepository purchaseRepository;
+
     private final UserRepository userRepository;
     private final EventRabbitService eventRabbitService;
 
