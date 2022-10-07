@@ -7,11 +7,11 @@
         <artifactId>vtbweb</artifactId>
         <groupId>ru.vtb.phoekoby</groupId>
         <version>1.0-SNAPSHOT</version>
+        <relativePath>../pom.xml</relativePath>
     </parent>
 
 
     <packaging>pom</packaging>
-<!--    <groupId>ru.vtb.phoekoby</groupId>-->
     <artifactId>server</artifactId>
     <version>1.0-SNAPSHOT</version>
 
@@ -20,7 +20,6 @@
     </properties>
 
     <modules>
-        <module>integration-module</module>
         <module>client-rest-microservice</module>
         <module>server-rpc-microservice</module>
     </modules>

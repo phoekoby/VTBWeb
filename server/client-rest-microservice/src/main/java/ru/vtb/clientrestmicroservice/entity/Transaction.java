@@ -5,7 +5,10 @@ import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 
 
 @Entity
@@ -19,6 +22,10 @@ public class Transaction extends BaseEntity{
     private String transactionHash;
 
     @ManyToOne
-    @JoinColumn(name = "wallet_id")
-    private Wallet wallet;
+    @JoinColumn(name = "from_wallet_id")
+    private Wallet fromWallet;
+
+    @ManyToOne
+    @JoinColumn(name = "to_wallet_id")
+    private Wallet toWallet;
 }

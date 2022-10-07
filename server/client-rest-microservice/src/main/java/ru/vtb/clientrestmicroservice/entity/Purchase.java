@@ -4,7 +4,6 @@ import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
-import ru.vtb.clientrestmicroservice.entity.user.User;
 
 import javax.persistence.*;
 
@@ -15,20 +14,18 @@ import javax.persistence.*;
 @RequiredArgsConstructor
 public class Purchase extends BaseEntity {
 
-    @ManyToOne
-    @JoinColumn(name = "prev_owner_user_id")
-    private User prevOwnerUser;
+    @Column(name = "prev_owner_user_id")
+    private Long prevOwnerUserId;
 
-    @ManyToOne
-    @JoinColumn(name = "buyer_user_id")
-    private User buyerUser;
+    @Column(name = "buyer_user_id")
+    private Long buyerUserId;
 
     @ManyToOne
     @JoinColumn(name = "product_id")
     private Product product;
 
     @Column(name = "cost")
-    private Double cost;
+    private Integer cost;
 
     @OneToOne
     @JoinColumn(name = "transaction_id")

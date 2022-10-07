@@ -4,9 +4,10 @@ package ru.vtb.clientrestmicroservice.entity;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
-import ru.vtb.clientrestmicroservice.entity.user.User;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.OneToMany;
 import java.util.List;
 
 @Entity
@@ -21,10 +22,14 @@ public class Wallet extends BaseEntity{
     @Column(name = "private_key")
     private String privateKey;
 
-    @ManyToOne
-    @JoinColumn(name = "user_id")
-    private User user;
+    @Column(name = "user_id")
+    private Long userId;
 
-    @OneToMany(mappedBy = "wallet")
-    private List<Transaction> notCompletedTransactions;
+    @OneToMany(mappedBy = "fromWallet")
+    private List<Transaction> outputTransactions;
+
+    @OneToMany(mappedBy = "toWallet")
+    private List<Transaction> inputTransaction;
+
+
 }

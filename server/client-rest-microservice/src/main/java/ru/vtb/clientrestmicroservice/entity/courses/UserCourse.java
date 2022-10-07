@@ -4,7 +4,6 @@ import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import ru.vtb.clientrestmicroservice.entity.BaseEntity;
-import ru.vtb.clientrestmicroservice.entity.user.User;
 
 import javax.persistence.*;
 import java.util.List;
@@ -15,9 +14,9 @@ import java.util.List;
 @Setter
 @RequiredArgsConstructor
 public class UserCourse extends BaseEntity {
-    @ManyToOne
-    @JoinColumn(name = "user_id")
-    private User user;
+
+    @Column(name = "user_id")
+    private Long userId;
 
     @OneToOne
     @JoinColumn(name = "course_id")
