@@ -1,31 +1,35 @@
 package ru.vtb.integrationmodule.entity;
 
-import lombok.Getter;
-import lombok.RequiredArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
-import ru.vtb.integrationmodule.entity.user.User;
+import lombok.*;
+import org.hibernate.Hibernate;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.MappedSuperclass;
+import java.util.Objects;
 
-@Entity
+@MappedSuperclass
 @Getter
 @Setter
 @ToString
 @RequiredArgsConstructor
-public class Transaction extends BaseEntity{
-    @OneToOne
-    @JoinColumn(name = "from_user_id")
-    private User fromUser;
-
-    @OneToOne
-    @JoinColumn(name = "to_user_id")
-    private User toUser;
-
-    @Column(name = "amount")
-    private Double amount;
+public abstract class Transaction extends BaseEntity{
 
     @Column(name = "transaction_status")
     @Enumerated(EnumType.STRING)
     private TransactionStatus transactionStatus;
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
+        Transaction that = (Transaction) o;
+        return getId() != null && Objects.equals(getId(), that.getId());
+    }
+
+    @Override
+    public int hashCode() {
+        return getClass().hashCode();
+    }
 }

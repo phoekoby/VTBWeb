@@ -3,9 +3,7 @@ package ru.vtb.integrationmodule.entity.user;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
-import ru.vtb.integrationmodule.entity.Exchange;
-import ru.vtb.integrationmodule.entity.Product;
-import ru.vtb.integrationmodule.entity.Wallet;
+import ru.vtb.integrationmodule.entity.*;
 import ru.vtb.integrationmodule.entity.courses.UserCourse;
 
 import javax.persistence.*;
@@ -16,10 +14,7 @@ import java.util.List;
 @Getter
 @Setter
 @RequiredArgsConstructor
-public class User {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+public class User extends BaseEntity {
 
     @Column(name = "name")
     private String name;
@@ -43,7 +38,7 @@ public class User {
     private Collection<Role> roles;
 
 
-    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL, optional = false)
+    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
     private Wallet wallet;
 
 
@@ -52,6 +47,32 @@ public class User {
 
     @OneToMany(mappedBy = "user")
     private List<Exchange> exchanges;
+
+    @OneToMany(mappedBy = "buyerUser")
+    private List<Purchase> myPurchases;
+
+    @OneToMany(mappedBy = "prevOwnerUser")
+    private List<Purchase> mySales;
+
+    @ManyToMany
+    @JoinTable(name = "user_mentors",
+    joinColumns = @JoinColumn(name = "user_id"),
+    inverseJoinColumns = @JoinColumn(name = "mentor_id"))
+    private List<User> myMentors;
+
+    @ManyToMany
+    @JoinTable(name = "user_mentors",
+            joinColumns = @JoinColumn(name = "mentor_id"),
+            inverseJoinColumns = @JoinColumn(name = "user_id"))
+    private List<User> myMentorings;
+
+
+    @ManyToOne
+    @JoinColumn(name = "supervisor_user_id")
+    private User supervisor;
+
+    @OneToMany(mappedBy = "supervisor")
+    private List<User> subordinates;
 
 
 }

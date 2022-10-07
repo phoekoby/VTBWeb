@@ -10,14 +10,14 @@ import ru.vtb.serverrpcmicroservice.service.EventService;
 
 @Component
 @RequiredArgsConstructor
-public class TransactionConsumer {
+public class TransferConsumer {
     private final EventService eventService;
     private final CustomISet<Long> userSet;
 
     @SneakyThrows
     @RabbitListener(
-            id = "TransactionEventMessageListener",
-            queues = "ru.vtb.qu.rpc.event.transaction",
+            id = "TransferEventMessageListener",
+            queues = "ru.vtb.qu.rpc.event.transfer",
             containerFactory = "vtbMessageListenerContainer"
     )
     public void onMessage(TransactionEventDto transactionEventDto){
@@ -30,7 +30,7 @@ public class TransactionConsumer {
         }
 
         try{
-            eventService.doTransaction(transactionEventDto.getTransactionId());
+            eventService.doTransfer(transactionEventDto.getTransactionId());
         }catch (Throwable e){
             //отправить в очередь ошибок
         }finally {

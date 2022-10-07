@@ -6,21 +6,25 @@ import org.springframework.transaction.annotation.Transactional;
 import ru.vtb.integrationmodule.entity.*;
 import ru.vtb.integrationmodule.entity.user.User;
 import ru.vtb.integrationmodule.events.TransactionStatusChangedEventDto;
-import ru.vtb.integrationmodule.events.TransactionType;
+import ru.vtb.integrationmodule.entity.TransactionType;
+import ru.vtb.integrationmodule.events.UserCourseProcessingChangedEventDto;
 import ru.vtb.integrationmodule.events.WalletBalanceChangedEventDto;
 import ru.vtb.integrationmodule.repo.PurchaseRepository;
-import ru.vtb.integrationmodule.repo.TransactionRepository;
+import ru.vtb.integrationmodule.repo.TransferRepository;
 import ru.vtb.integrationmodule.repo.UserRepository;
 import ru.vtb.serverrpcmicroservice.service.EventRabbitService;
 import ru.vtb.serverrpcmicroservice.service.EventService;
 
 import java.util.Optional;
 
+import static ru.vtb.integrationmodule.entity.courses.CourseStatus.COMPLETED;
+import static ru.vtb.integrationmodule.entity.courses.CourseStatus.PROCESSING;
+
 @Service
 @RequiredArgsConstructor
 @Transactional
 public class EventServiceImpl implements EventService {
-    private final TransactionRepository transactionRepository;
+    private final TransferRepository transferRepository;
     private final PurchaseRepository purchaseRepository;
 
     private final UserRepository userRepository;
@@ -31,7 +35,7 @@ public class EventServiceImpl implements EventService {
         Optional<Purchase> byId = purchaseRepository.findById(purchaseId);
         if(byId.isPresent()){
             Purchase purchase = new Purchase();
-            if(purchase.getTransactionStatus().equals(TransactionStatus.PROCESSING)){
+            if(TransactionStatus.PROCESSING.equals(purchase.getTransactionStatus())){
                 Product product = purchase.getProduct();
                 Wallet buyerUserWallet = purchase.getBuyerUser().getWallet();
                 Wallet productOwnerWallet = product.getOwner().getWallet();
@@ -69,37 +73,37 @@ public class EventServiceImpl implements EventService {
     }
 
     @Override
-    public void doTransaction(Long transactionId) {
-        Optional<Transaction> byId = transactionRepository.findById(transactionId);
+    public void doTransfer(Long transferId) {
+        Optional<Transfer> byId = transferRepository.findById(transferId);
         if(byId.isPresent()){
-            Transaction transaction = byId.get();
-            if(transaction.getTransactionStatus().equals(TransactionStatus.PROCESSING)){
-                User fromUser = transaction.getFromUser();
-                User toUser = transaction.getToUser();
+            Transfer transfer = byId.get();
+            if(TransactionStatus.PROCESSING.equals(transfer.getTransactionStatus())){
+                User fromUser = transfer.getFromUser();
+                User toUser = transfer.getToUser();
                 Wallet fromUserWallet = fromUser.getWallet();
                 Wallet toUserWallet = toUser.getWallet();
-                Double needForTransaction = transaction.getAmount();
+                Double needForTransaction = transfer.getAmount();
                 Double fromUserHas = fromUserWallet.getAmount();
                 if(fromUserHas >= needForTransaction){
-                    changeBalance(fromUserWallet, -needForTransaction, TransactionType.TRANSACTION);
-                    changeBalance(toUserWallet, needForTransaction, TransactionType.TRANSACTION);
-                    transaction.setTransactionStatus(TransactionStatus.COMPLETED);
-                    transactionRepository.save(transaction);
+                    changeBalance(fromUserWallet, -needForTransaction, TransactionType.TRANSFER);
+                    changeBalance(toUserWallet, needForTransaction, TransactionType.TRANSFER);
+                    transfer.setTransactionStatus(TransactionStatus.COMPLETED);
+                    transferRepository.save(transfer);
                     eventRabbitService.sendTransactionStatusChanged(TransactionStatusChangedEventDto.builder()
                             .currStatus(TransactionStatus.COMPLETED)
                             .prevStatus(TransactionStatus.PROCESSING)
                             .reason("Перевод успешно выполнен")
-                            .transactionType(TransactionType.TRANSACTION)
-                            .transactionId(transactionId).build());
+                            .transactionType(TransactionType.TRANSFER)
+                            .transactionId(transferId).build());
                 }else{
-                    transaction.setTransactionStatus(TransactionStatus.COMPLETED);
-                    transactionRepository.save(transaction);
+                    transfer.setTransactionStatus(TransactionStatus.COMPLETED);
+                    transferRepository.save(transfer);
                     eventRabbitService.sendTransactionStatusChanged(TransactionStatusChangedEventDto.builder()
                             .currStatus(TransactionStatus.ERROR)
                             .prevStatus(TransactionStatus.PROCESSING)
                             .reason("Недостаточно средств для перевода")
-                            .transactionType(TransactionType.TRANSACTION)
-                            .transactionId(transactionId).build());
+                            .transactionType(TransactionType.TRANSFER)
+                            .transactionId(transferId).build());
                 }
             }
         }
@@ -111,8 +115,14 @@ public class EventServiceImpl implements EventService {
     }
 
     @Override
-    public void analyseUserCourseProcessingChanged(Long userCourseId) {
-        //подумать как тут делать
+    public void analyseUserCourseProcessingChanged(UserCourseProcessingChangedEventDto userCourseProcessingChangedEventDto) {
+        if(null == userCourseProcessingChangedEventDto.getPrevStatus() &&PROCESSING.equals(userCourseProcessingChangedEventDto.getCurrStatus())){
+            //просто отправить поздравления или что то в этом духе
+        }else if(PROCESSING.equals(userCourseProcessingChangedEventDto.getPrevStatus()) && COMPLETED.equals(userCourseProcessingChangedEventDto.getCurrStatus())){
+            //начислить на счет, причем чем другую транзакцию, т.е закинуть себе в очередь
+        }else{
+            //?
+        }
     }
 
 

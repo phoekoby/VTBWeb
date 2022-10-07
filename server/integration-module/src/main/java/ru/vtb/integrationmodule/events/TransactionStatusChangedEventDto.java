@@ -6,6 +6,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import ru.vtb.integrationmodule.entity.TransactionStatus;
+import ru.vtb.integrationmodule.entity.TransactionType;
 
 import java.io.Serializable;
 

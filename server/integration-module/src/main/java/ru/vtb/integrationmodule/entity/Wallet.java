@@ -15,8 +15,14 @@ import java.util.List;
 @RequiredArgsConstructor
 public class Wallet extends BaseEntity{
 
+    @Column(name = "wallet_type")
+    private WalletType walletType;
+
     @Column(name = "amount")
     private Double amount;
+
+    @Column(name = "uuid")
+    private String uuid;
 
     @OneToOne(optional = false)
     @JoinColumn(name = "user_id")

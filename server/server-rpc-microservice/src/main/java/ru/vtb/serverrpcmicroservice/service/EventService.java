@@ -1,8 +1,10 @@
 package ru.vtb.serverrpcmicroservice.service;
 
+import ru.vtb.integrationmodule.events.UserCourseProcessingChangedEventDto;
+
 public interface EventService {
     void doPurchase(Long purchaseId);
-    void doTransaction(Long transactionId);
+    void doTransfer(Long transactionId);
     void doExchange(Long exchangeId);
-    void analyseUserCourseProcessingChanged(Long userCourseId);
+    void analyseUserCourseProcessingChanged(UserCourseProcessingChangedEventDto userCourseProcessingChangedEventDto);
 }

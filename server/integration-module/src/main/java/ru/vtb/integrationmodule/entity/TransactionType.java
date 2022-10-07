@@ -1,7 +1,7 @@
-package ru.vtb.integrationmodule.events;
+package ru.vtb.integrationmodule.entity;
 
 public enum TransactionType {
     EXCHANGE,
     PURCHASE,
-    TRANSACTION
+    TRANSFER
 }

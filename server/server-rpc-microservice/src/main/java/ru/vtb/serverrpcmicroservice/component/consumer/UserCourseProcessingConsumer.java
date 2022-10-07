@@ -26,7 +26,7 @@ public class UserCourseProcessingConsumer {
             // подождать
         }
         try {
-            eventService.analyseUserCourseProcessingChanged(userCourseProcessingChangedEventDto.getUserCourseId());
+            eventService.analyseUserCourseProcessingChanged(userCourseProcessingChangedEventDto);
         }catch (Throwable e){
             //кинуть в очередь ошибок
         }finally {

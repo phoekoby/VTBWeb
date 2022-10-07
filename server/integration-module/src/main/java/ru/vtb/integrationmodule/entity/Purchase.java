@@ -13,13 +13,13 @@ import javax.persistence.*;
 @Setter
 @ToString
 @RequiredArgsConstructor
-public class Purchase extends BaseEntity{
+public class Purchase extends Transaction{
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "prev_owner_user_id")
     private User prevOwnerUser;
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "buyer_user_id")
     private User buyerUser;
 
@@ -29,8 +29,4 @@ public class Purchase extends BaseEntity{
 
     @Column(name = "cost")
     private Double cost;
-
-    @Column(name = "transaction_status")
-    @Enumerated(EnumType.STRING)
-    private TransactionStatus transactionStatus;
 }
