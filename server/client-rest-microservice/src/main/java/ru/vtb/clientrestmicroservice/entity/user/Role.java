@@ -1,9 +1,9 @@
-package ru.vtb.integrationmodule.entity.user;
+package ru.vtb.clientrestmicroservice.entity.user;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
-import ru.vtb.integrationmodule.entity.BaseEntity;
+import ru.vtb.clientrestmicroservice.entity.BaseEntity;
 
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;

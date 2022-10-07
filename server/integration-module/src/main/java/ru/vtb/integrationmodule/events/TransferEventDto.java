@@ -11,7 +11,7 @@ import java.io.Serializable;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class TransactionEventDto implements Serializable {
+public class TransferEventDto implements Serializable {
     private Long transactionId;
     private Long fromUserId;
     private Long toUserId;

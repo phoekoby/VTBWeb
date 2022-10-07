@@ -1,10 +1,10 @@
-package ru.vtb.integrationmodule.entity.courses;
+package ru.vtb.clientrestmicroservice.entity.courses;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
-import ru.vtb.integrationmodule.entity.BaseEntity;
-import ru.vtb.integrationmodule.entity.user.User;
+import ru.vtb.clientrestmicroservice.entity.BaseEntity;
+import ru.vtb.clientrestmicroservice.entity.user.User;
 
 import javax.persistence.*;
 import java.util.List;

@@ -1,4 +1,4 @@
-package ru.vtb.integrationmodule.entity.courses;
+package ru.vtb.clientrestmicroservice.entity.courses;
 
 public enum SlideStatus {
     PROCESSING,

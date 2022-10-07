@@ -1,4 +1,4 @@
-package ru.vtb.integrationmodule.entity;
+package ru.vtb.clientrestmicroservice.entity;
 
 
 import lombok.Getter;

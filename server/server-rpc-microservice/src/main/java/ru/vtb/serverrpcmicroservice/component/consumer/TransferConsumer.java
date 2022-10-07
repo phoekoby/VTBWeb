@@ -4,7 +4,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.stereotype.Component;
-import ru.vtb.integrationmodule.events.TransactionEventDto;
+import ru.vtb.integrationmodule.events.TransferEventDto;
 import ru.vtb.serverrpcmicroservice.pojo.CustomISet;
 import ru.vtb.serverrpcmicroservice.service.EventService;
 
@@ -20,22 +20,22 @@ public class TransferConsumer {
             queues = "ru.vtb.qu.rpc.event.transfer",
             containerFactory = "vtbMessageListenerContainer"
     )
-    public void onMessage(TransactionEventDto transactionEventDto){
-        if(!userSet.add(transactionEventDto.getFromUserId())){
+    public void onMessage(TransferEventDto transferEventDto){
+        if(!userSet.add(transferEventDto.getFromUserId())){
             //подождать
         }
-        if(!userSet.add(transactionEventDto.getToUserId())){
+        if(!userSet.add(transferEventDto.getToUserId())){
             //подождать
-            userSet.delete(transactionEventDto.getFromUserId());
+            userSet.delete(transferEventDto.getFromUserId());
         }
 
         try{
-            eventService.doTransfer(transactionEventDto.getTransactionId());
+            eventService.doTransfer(transferEventDto.getTransactionId());
         }catch (Throwable e){
             //отправить в очередь ошибок
         }finally {
-            userSet.delete(transactionEventDto.getFromUserId());
-            userSet.delete(transactionEventDto.getToUserId());
+            userSet.delete(transferEventDto.getFromUserId());
+            userSet.delete(transferEventDto.getToUserId());
         }
     }
 }

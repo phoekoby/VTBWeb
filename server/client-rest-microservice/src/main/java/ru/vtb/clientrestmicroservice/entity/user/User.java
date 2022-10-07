@@ -1,10 +1,14 @@
-package ru.vtb.integrationmodule.entity.user;
+package ru.vtb.clientrestmicroservice.entity.user;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
+import ru.vtb.clientrestmicroservice.entity.BaseEntity;
+import ru.vtb.clientrestmicroservice.entity.Product;
+import ru.vtb.clientrestmicroservice.entity.Purchase;
+import ru.vtb.clientrestmicroservice.entity.Wallet;
+import ru.vtb.clientrestmicroservice.entity.courses.UserCourse;
 import ru.vtb.integrationmodule.entity.*;
-import ru.vtb.integrationmodule.entity.courses.UserCourse;
 
 import javax.persistence.*;
 import java.util.Collection;
@@ -38,15 +42,12 @@ public class User extends BaseEntity {
     private Collection<Role> roles;
 
 
-    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
-    private Wallet wallet;
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    private List<Wallet> wallets;
 
 
     @OneToMany(mappedBy = "user")
-    private List<UserCourse> userCourses;
-
-    @OneToMany(mappedBy = "user")
-    private List<Exchange> exchanges;
+    private List<UserCourse> myCourses;
 
     @OneToMany(mappedBy = "buyerUser")
     private List<Purchase> myPurchases;
@@ -65,7 +66,6 @@ public class User extends BaseEntity {
             joinColumns = @JoinColumn(name = "mentor_id"),
             inverseJoinColumns = @JoinColumn(name = "user_id"))
     private List<User> myMentorings;
-
 
     @ManyToOne
     @JoinColumn(name = "supervisor_user_id")

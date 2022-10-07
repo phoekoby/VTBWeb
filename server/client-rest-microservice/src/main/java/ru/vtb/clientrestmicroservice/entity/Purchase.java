@@ -1,10 +1,10 @@
-package ru.vtb.integrationmodule.entity;
+package ru.vtb.clientrestmicroservice.entity;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
-import ru.vtb.integrationmodule.entity.user.User;
+import ru.vtb.clientrestmicroservice.entity.user.User;
 
 import javax.persistence.*;
 
@@ -13,7 +13,7 @@ import javax.persistence.*;
 @Setter
 @ToString
 @RequiredArgsConstructor
-public class Purchase extends Transaction{
+public class Purchase extends BaseEntity {
 
     @ManyToOne
     @JoinColumn(name = "prev_owner_user_id")
@@ -29,4 +29,8 @@ public class Purchase extends Transaction{
 
     @Column(name = "cost")
     private Double cost;
+
+    @OneToOne
+    @JoinColumn(name = "transaction_id")
+    private Transaction transaction;
 }

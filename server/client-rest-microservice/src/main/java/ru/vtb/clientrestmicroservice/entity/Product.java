@@ -1,10 +1,10 @@
-package ru.vtb.integrationmodule.entity;
+package ru.vtb.clientrestmicroservice.entity;
 
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
-import ru.vtb.integrationmodule.entity.user.User;
+import ru.vtb.clientrestmicroservice.entity.user.User;
 
 import javax.persistence.*;
 import java.util.List;
