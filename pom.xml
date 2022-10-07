@@ -19,9 +19,10 @@
     </properties>
 
     <modules>
-        <module>configuration</module>
         <module>client</module>
         <module>server</module>
+        <module>configuration</module>
+        <module>eureka-server</module>
     </modules>
 
 </project>
