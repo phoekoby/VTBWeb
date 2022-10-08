@@ -242,6 +242,18 @@ CREATE INDEX product_pictures_index on market_management.product_pictures
      picture_id
         );
 
+CREATE TABLE market_management.product_category
+(
+    product_id int8 references market_management.product (id),
+    category_id int8 references market_management.category (id)
+);
+
+CREATE INDEX product_category_index on market_management.product_category
+    (
+     product_id,
+     category_id
+        );
+
 --------------------------------------------------------------------------------------------------
 --------------------------------------------------------------------------------------------------
 
