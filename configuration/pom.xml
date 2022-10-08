@@ -10,13 +10,13 @@
     </parent>
     <groupId>ru.vtb.phoekoby</groupId>
     <artifactId>configuration</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>0.0.2-SNAPSHOT</version>
     <name>configuration</name>
     <description>configuration</description>
     <properties>
         <java.version>11</java.version>
         <spring-cloud.version>2021.0.4</spring-cloud.version>
-        <docker.image.prefix>vtb-config</docker.image.prefix>
+        <docker.image.prefix>phoekoby</docker.image.prefix>
     </properties>
     <dependencies>
         <dependency>
@@ -63,7 +63,7 @@
                 <artifactId>dockerfile-maven-plugin</artifactId>
                 <version>1.4.13</version>
                 <configuration>
-                    <repository>phoekoby/${project.artifactId}</repository>
+                    <repository>${docker.image.prefix}/${project.artifactId}</repository>
                     <tag>${project.version}</tag>
                     <buildArgs>
                         <JAR_FILE>target/${project.build.finalName}.jar</JAR_FILE>

@@ -1,6 +1,6 @@
 spring:
   application:
-    name: server-rpc
+    name: marketplace-management
   profiles:
     active: default
   cloud:

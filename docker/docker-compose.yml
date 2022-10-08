@@ -43,9 +43,10 @@ services:
 #      server:
 #        aliases:
 #          - 'rpc-server'
-  vtb-server-rest:
-    image: phoekoby/client-rest-microservice:0.0.1-SNAPSHOT
+  vtb-transact-management:
+    image: phoekoby/transact-management:0.0.1-SNAPSHOT
     network_mode: host
+    restart: on-failure
 #    ports:
 #      - "127.0.0.1:8081:8081"
 #    environment:
@@ -60,7 +61,7 @@ services:
 #        aliases:
 #          - 'rpc-server'
   vtb-configuration-server:
-    image: phoekoby/configuration:0.0.1-SNAPSHOT
+    image: phoekoby/configuration:0.0.2-SNAPSHOT
     network_mode: host
 #    ports:
 #      - "127.0.0.1:8765:8765"

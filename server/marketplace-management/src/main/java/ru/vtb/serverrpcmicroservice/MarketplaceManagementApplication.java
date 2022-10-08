@@ -7,10 +7,10 @@ import org.springframework.cloud.context.config.annotation.RefreshScope;
 @SpringBootApplication
 //заставить прочитать заново конфигурацию в случае ее изменения
 @RefreshScope
-public class ServerRpcMicroserviceApplication {
+public class MarketplaceManagementApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(ServerRpcMicroserviceApplication.class, args);
+        SpringApplication.run(MarketplaceManagementApplication.class, args);
     }
 
 }
