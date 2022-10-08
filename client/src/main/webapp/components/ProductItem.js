@@ -6,10 +6,10 @@ import {useNavigate} from 'react-router-dom'
 import {PRODUCT_ROUTE} from "../utils/consts";
 
 const ProductItem = ({product}) => {
-    const history = useNavigate()
+    const navigate = useNavigate()
 
     return (
-        <Col md={3} className={styles.column} onClick={() => history(PRODUCT_ROUTE + '/' + product.id)}>
+        <Col md={3} className={styles.column} onClick={() => navigate(PRODUCT_ROUTE + '/' + product.id)}>
             <Card className={styles.productItem}>
                 <Image className={styles.image} /*src={product.img}*//>
                 <div className={styles.info}>
