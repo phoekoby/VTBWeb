@@ -1,6 +1,8 @@
 import Api from "./Api"
 import {$host,$authHost} from "./index";
 import jwtDecode from "jwt-decode";
+import {useContext} from "react";
+import {Context} from "../../../index";
 
 
 const api = new Api()
@@ -44,6 +46,10 @@ export const login = async (email,password) => {
 
 export const checkToken = async() => {
     console.log('checkToken')
+    let token = localStorage.getItem('token')
+    if(token){
+        return token
+    }
     const {data} = await $authHost.get('/authorize')
     localStorage.setItem('token',data.token)
     return jwtDecode(data.token)
