@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Component
-public class CreateUserMapper implements EntityMapper<User, CreateUserDTO>{
+public class CreateUserMapper implements EntityMapper<User, CreateUserDTO> {
     @Override
     public User toEntity(CreateUserDTO createUserDTO) {
         return User
@@ -22,12 +22,12 @@ public class CreateUserMapper implements EntityMapper<User, CreateUserDTO>{
 
     @Override
     public CreateUserDTO toDto(User user) {
-        return (CreateUserDTO) AbstractUserDTO
-                .builder()
-                .email(user.getEmail())
-                .lastName(user.getLastName())
-                .firstName(user.getFirstName())
-                .build();
+        CreateUserDTO createUserDTO = new CreateUserDTO();
+        createUserDTO.setEmail(user.getEmail());
+        createUserDTO.setLogin(user.getLogin());
+        createUserDTO.setLastName(user.getLastName());
+        createUserDTO.setFirstName(user.getFirstName());
+        return createUserDTO;
     }
 
     @Override
