@@ -1,5 +1,5 @@
 import React, {useContext} from 'react';
-import {Context} from "../index";
+import {Context} from "../../../index";
 import {Navbar, Nav, Button, Container} from "react-bootstrap";
 import {NavLink} from "react-router-dom";
 import {SHOP_ROUTE} from "../utils/consts";
