@@ -3,6 +3,7 @@ import {Context} from "../../../index";
 import {Navbar, Nav, Button, Container} from "react-bootstrap";
 import {NavLink} from "react-router-dom";
 import {
+    ACHIEVMENTS_ROUTE,
     COURSES_ROUTE,
     LOGIN_ROUTE,
     NOTIFICATIONS_ROUTE,
