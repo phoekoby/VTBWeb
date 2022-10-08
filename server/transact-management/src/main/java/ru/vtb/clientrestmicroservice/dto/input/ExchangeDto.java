@@ -11,8 +11,8 @@ import ru.vtb.clientrestmicroservice.entity.transaction.Currency;
 @AllArgsConstructor
 @Builder
 public class ExchangeDto {
-    private Long fromUserId;
-    private Long toUserId;
+    private Long fromWalletId;
+    private Long toWalletId;
     private Currency from;
     private Currency to;
     private Double amount;

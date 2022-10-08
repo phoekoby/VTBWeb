@@ -5,12 +5,13 @@ import lombok.Builder;
 import lombok.Data;
 import ru.vtb.clientrestmicroservice.entity.transaction.Currency;
 
-@Data
 @AllArgsConstructor
+@Data
 @Builder
-public class TransferDto {
+public class PurchaseDto {
     private Long fromWalletId;
     private Long toWalletId;
+    private Long productId;
     private Currency currency;
-    private Double amount;
+    private Double cost;
 }

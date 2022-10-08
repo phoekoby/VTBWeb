@@ -7,8 +7,6 @@ import lombok.Data;
 @Data
 @AllArgsConstructor
 @Builder
-public class ExchangeMessageEventDto {
-    private Long exchangeId;
-    private Long transactionFrom;
-    private Long transactionTo;
+public class PurchaseMessageEventDto {
+    private Long purchaseId;
 }
