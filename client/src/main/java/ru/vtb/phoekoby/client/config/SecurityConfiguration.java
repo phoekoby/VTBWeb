@@ -3,13 +3,16 @@ package ru.vtb.phoekoby.client.config;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.web.servlet.config.annotation.CorsRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import ru.vtb.phoekoby.client.security.JwtAuthenticationFilter;
 
-@Configuration
+@Configuration(proxyBeanMethods = false)
 @EnableWebSecurity
 @RequiredArgsConstructor
 public class SecurityConfiguration {
@@ -23,6 +26,11 @@ public class SecurityConfiguration {
                 .csrf().disable()
                 .authorizeRequests()
                 .antMatchers("/api/v1/create-account").permitAll()
+//
+//                .antMatchers("/").permitAll()
+//                .antMatchers("/index.html").permitAll()
+//                .antMatchers("/assets/**").permitAll()
+//
                 .antMatchers("/api/v1/authorize").permitAll()
                 .antMatchers("/api/v1/authenticate").permitAll()
                 .antMatchers("/api/v1/requests/**").authenticated()
