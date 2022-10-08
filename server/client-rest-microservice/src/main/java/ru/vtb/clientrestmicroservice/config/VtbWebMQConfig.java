@@ -15,4 +15,5 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @EnableTransactionManagement
 @EnableAsync
 public class VtbWebMQConfig {
+
 }

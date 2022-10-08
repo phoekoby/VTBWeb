@@ -11,11 +11,14 @@ import ru.vtb.clientrestmicroservice.dto.Currency;
 import ru.vtb.clientrestmicroservice.dto.UserDto;
 import ru.vtb.clientrestmicroservice.dto.input.ExchangeDto;
 import ru.vtb.clientrestmicroservice.dto.input.TransferDto;
+import ru.vtb.clientrestmicroservice.dto.message.TransactionMessageEventDto;
+import ru.vtb.clientrestmicroservice.dto.message.TransactionType;
 import ru.vtb.clientrestmicroservice.dto.moneyApi.ApiTransferDto;
 import ru.vtb.clientrestmicroservice.entity.Transaction;
 import ru.vtb.clientrestmicroservice.entity.Wallet;
 import ru.vtb.clientrestmicroservice.repository.TransactionRepository;
 import ru.vtb.clientrestmicroservice.repository.WalletRepository;
+import ru.vtb.clientrestmicroservice.service.TransactionRabbitService;
 import ru.vtb.clientrestmicroservice.service.TransactionService;
 
 @Service
@@ -24,6 +27,7 @@ public class TransactionServiceImpl implements TransactionService {
     private final RestTemplate restTemplate;
     private final WalletRepository walletRepository;
     private final TransactionRepository transactionRepository;
+    private final TransactionRabbitService transactionRabbitService;
     @Value("${base.url}")
     private String baseUrl;
 
@@ -52,6 +56,11 @@ public class TransactionServiceImpl implements TransactionService {
             transaction.setFromWallet(fromWallet);
             transaction.setToWallet(toWallet);
             transactionRepository.save(transaction);
+            transactionRabbitService.sendToControl(TransactionMessageEventDto.builder()
+                    .transactionId(transaction.getId())
+                    .hash(hash)
+                    .transactionType(TransactionType.TRANSFER)
+                    .build());
             return hash;
         }
         return null;
@@ -72,6 +81,16 @@ public class TransactionServiceImpl implements TransactionService {
     @Override
     public String doExchange(ExchangeDto exchangeDto) {
         return null;
+    }
+
+    @Override
+    public String getStatus(String hash) {
+        return null;
+    }
+
+    @Override
+    public void analyseTransaction(TransactionMessageEventDto transactionMessageEventDto) {
+
     }
 
 

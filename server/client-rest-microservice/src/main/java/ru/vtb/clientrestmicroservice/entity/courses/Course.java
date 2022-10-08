@@ -25,8 +25,4 @@ public class Course extends BaseEntity {
 
     @Column(name = "course_prize")
     private Double coursePrize;
-
-    //maybe?
-    @Column(name = "course_prise")
-    private Double coursePrise;
 }
