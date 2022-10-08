@@ -15,7 +15,7 @@
 
     <properties>
         <java.version>11</java.version>
-        <docker.image.prefix>vtb-gateway</docker.image.prefix>
+        <docker.image.prefix>phoekoby</docker.image.prefix>
     </properties>
 
 
@@ -182,7 +182,7 @@
             <artifactId>dockerfile-maven-plugin</artifactId>
             <version>1.4.13</version>
             <configuration>
-                <repository>phoekoby/${project.artifactId}</repository>
+                <repository>${docker.image.prefix}/${project.artifactId}</repository>
                 <tag>${project.version}</tag>
                 <buildArgs>
                     <JAR_FILE>target/${project.build.finalName}.jar</JAR_FILE>

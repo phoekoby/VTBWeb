@@ -8,10 +8,10 @@ import org.springframework.cloud.openfeign.EnableFeignClients;
 @SpringBootApplication
 @EnableFeignClients
 @RefreshScope
-public class ClientRestMicroserviceApplication {
+public class TransactionManagementApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(ClientRestMicroserviceApplication.class, args);
+        SpringApplication.run(TransactionManagementApplication.class, args);
     }
 
 }
