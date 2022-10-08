@@ -84,7 +84,7 @@ services:
     depends_on:
       - vtb-configuration-server
     ports:
-      - "8070:8070"
+      - "8761:8761"
 
 
 

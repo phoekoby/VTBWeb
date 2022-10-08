@@ -247,11 +247,11 @@ CREATE TABLE market_management.picture
 
 CREATE TABLE market_management.product
 (
-    id            BIGSERIAL PRIMARY KEY,
-    owner_user_id int8         NOT NULL,
-    name          varchar(255) NOT NULL,
-    create_date   timestamp    NOT NULL DEFAULT now(),
-    update_date   timestamp    NOT NULL DEFAULT now()
+    id          BIGSERIAL PRIMARY KEY,
+    description text,
+    name        varchar(255) NOT NULL,
+    create_date timestamp    NOT NULL DEFAULT now(),
+    update_date timestamp    NOT NULL DEFAULT now()
 );
 
 CREATE TABLE market_management.cost
