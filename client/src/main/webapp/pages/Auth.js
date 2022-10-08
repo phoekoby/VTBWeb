@@ -1,12 +1,38 @@
-import React from 'react';
+import React, {useContext, useState} from 'react';
 import {Button, Card, Container, Form} from "react-bootstrap";
 import styles from "../styles/Auth.module.css";
 import {NavLink,useLocation} from "react-router-dom";
-import {LOGIN_ROUTE, REGISTRATION_ROUTE} from "../utils/consts";
+import {LOGIN_ROUTE, REGISTRATION_ROUTE, SHOP_ROUTE} from "../utils/consts";
+import {Context} from "../../../index";
+import {useNavigate} from "react-router-dom"
+import {observer} from "mobx-react-lite";
 
-const Auth = () => {
+const Auth = observer(() => {
     const location = useLocation()
+    const navigate = useNavigate()
     const isLogin = location.pathname === LOGIN_ROUTE
+    const {user} = useContext(Context)
+    const [email,setEmail] = useState('')
+    const [password,setPassword] = useState('')
+
+    const click = async () => {
+        try {
+            let data
+            if(isLogin){
+                //data = await login(email,password)
+            }else{
+                //data = await registration(email,password)
+                //console.log(response)
+            }
+            //user.setUser(data)
+            user.setIsAuth(true)
+            navigate(SHOP_ROUTE)
+        }catch (e) {
+            alert(e.response.data.message)
+        }
+    }
+
+
     return (
         <Container
             className={styles.container}
@@ -18,10 +44,15 @@ const Auth = () => {
                     <Form.Control
                         className={styles.placeholder}
                         placeholder="Введите ваш email..."
+                        value={email}
+                        onChange={e => setEmail(e.target.value)}
                     />
                     <Form.Control
                         className={styles.placeholder}
                         placeholder="Введите ваш пароль..."
+                        value={password}
+                        onChange={e => setPassword(e.target.value)}
+                        type="password"
                     />
                     <div className={styles.formRow}>
                         {isLogin ?
@@ -34,7 +65,11 @@ const Auth = () => {
                             </div>
                         }
 
-                        <Button className={styles.loginButton} variant={"outline-success"}>
+                        <Button
+                            className={styles.loginButton}
+                            variant={"outline-success"}
+                            onClick={click}
+                        >
                             {isLogin? 'Войти' : 'Регистрация'}
                         </Button>
                     </div>
@@ -44,6 +79,6 @@ const Auth = () => {
 
         </Container>
     );
-};
+});
 
 export default Auth;
