@@ -10,6 +10,7 @@ import javax.persistence.*;
 import java.util.List;
 
 @Entity
+@Table(name = "slide", schema = "transaction_management")
 @Getter
 @Setter
 @RequiredArgsConstructor
@@ -23,8 +24,9 @@ public class Slide extends BaseEntity {
 
     @ManyToMany
     @JoinTable(name = "slides_pictures",
-    joinColumns = @JoinColumn(name = "slide_id"),
-    inverseJoinColumns = @JoinColumn(name = "picture_id"))
+            schema = "transaction_management",
+            joinColumns = @JoinColumn(name = "slide_id"),
+            inverseJoinColumns = @JoinColumn(name = "picture_id"))
     private List<Picture> pictureList;
 
     @ManyToOne

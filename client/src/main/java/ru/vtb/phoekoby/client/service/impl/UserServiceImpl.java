@@ -10,6 +10,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.HttpServerErrorException;
 import ru.vtb.phoekoby.client.config.RoleConstants;
@@ -36,6 +37,7 @@ import java.util.stream.Collectors;
 
 @Service
 @Slf4j
+@Transactional
 @RequiredArgsConstructor
 public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
@@ -78,6 +80,13 @@ public class UserServiceImpl implements UserService {
         String encryptedPassword = getHashedString(password);
         User user = userRepository.findByLoginAndPassword(login, encryptedPassword)
                 .orElseThrow(() -> new HttpClientErrorException(HttpStatus.NOT_FOUND, "User login or password are incorrect"));
+        String privilege = user.getRoles()
+                .stream()
+                .map(Role::getPrivileges)
+                .map(privileges -> privileges
+                        .stream()
+                        .map(Privilege::getName)
+                        .collect(Collectors.joining(","))).collect(Collectors.joining(","));
         return Jwts
                 .builder()
                 .setIssuer(user.getLogin())
@@ -87,14 +96,10 @@ public class UserServiceImpl implements UserService {
                 .claim("email", user.getEmail())
                 .claim("firstName", user.getFirstName())
                 .claim("lastName", user.getLastName())
-                .claim("roles", user.getRoles().stream().map(Role::getName).collect(Collectors.joining(",")))
-                .claim("privileges", user.getRoles()
-                        .stream()
-                        .map(Role::getPrivileges)
-                        .map(privileges -> privileges
-                                .stream()
-                                .map(Privilege::getName)
-                                .collect(Collectors.joining(","))))
+                .claim("roles", user.getRoles().stream()
+                        .map(Role::getName)
+                        .collect(Collectors.joining(",")))
+                .claim("privileges", privilege)
                 .signWith(
                         signingKey
                 )

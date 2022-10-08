@@ -36,6 +36,7 @@ public class User extends BaseEntity {
     @ManyToMany(cascade = CascadeType.PERSIST)
     @JoinTable(
             name = "users_roles",
+            schema = "user_management",
             joinColumns = @JoinColumn(
                     name = "user_id", referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn(
@@ -45,12 +46,14 @@ public class User extends BaseEntity {
 
     @ManyToMany
     @JoinTable(name = "user_mentors",
+            schema = "user_management",
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "mentor_id"))
     private List<User> myMentors;
 
     @ManyToMany
     @JoinTable(name = "user_mentors",
+            schema = "user_management",
             joinColumns = @JoinColumn(name = "mentor_id"),
             inverseJoinColumns = @JoinColumn(name = "user_id"))
     private List<User> myMentorings;

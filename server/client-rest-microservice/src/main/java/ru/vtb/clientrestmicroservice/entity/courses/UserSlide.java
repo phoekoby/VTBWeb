@@ -9,6 +9,7 @@ import ru.vtb.clientrestmicroservice.entity.UserAccount;
 import javax.persistence.*;
 
 @Entity
+@Table(name = "user_slide", schema = "transaction_management")
 @Getter
 @Setter
 @RequiredArgsConstructor

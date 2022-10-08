@@ -5,9 +5,9 @@ services:
     image: postgres:latest
     environment:
       - DATABASE_HOST=127.0.0.1
-      - POSTGRES_USER=root
-      - POSTGRES_PASSWORD=root
-      - POSTGRES_DB=root
+      - POSTGRES_USER=admin
+      - POSTGRES_PASSWORD=qwerty
+      - POSTGRES_DB=vtb
     ports:
       - "5432:5432"
     volumes:

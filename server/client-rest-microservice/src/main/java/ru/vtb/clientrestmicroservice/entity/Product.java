@@ -9,6 +9,7 @@ import javax.persistence.*;
 import java.util.List;
 
 @Entity
+//@Table(name = "product", schema = "transaction_management")
 @Getter
 @Setter
 @RequiredArgsConstructor

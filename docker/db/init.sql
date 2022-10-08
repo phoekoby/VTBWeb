@@ -243,7 +243,7 @@ CREATE INDEX product_pictures_index on market_management.product_pictures
 --------------------------------------------------------------------------------------------------
 
 INSERT INTO user_management.users (first_name, last_name, email, login, password)
-VALUES ('noname', 'noname', 'noname', 'admin', 'admin');
+VALUES ('noname', 'noname', 'noname', 'admin', '21232f297a57a5a743894a0e4a801fc3');
 
 INSERT INTO user_management.privilege (name)
 VALUES ('EXCHANGE'),         -- 1

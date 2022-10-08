@@ -5,12 +5,11 @@ import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
 import java.util.List;
 
 @Entity
+@Table(name = "wallet", schema = "transaction_management")
 @Getter
 @Setter
 @RequiredArgsConstructor
@@ -22,8 +21,9 @@ public class Wallet extends BaseEntity{
     @Column(name = "private_key")
     private String privateKey;
 
-    @Column(name = "user_id")
-    private Long userId;
+    @ManyToOne
+    @JoinColumn(name = "user_account_id")
+    private UserAccount userAccount;
 
     @OneToMany(mappedBy = "fromWallet")
     private List<Transaction> outputTransactions;

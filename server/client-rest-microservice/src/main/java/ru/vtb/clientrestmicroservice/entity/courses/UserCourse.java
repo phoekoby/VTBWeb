@@ -11,6 +11,7 @@ import java.util.List;
 
 
 @Entity
+@Table(name = "user_course", schema = "transaction_management")
 @Getter
 @Setter
 @RequiredArgsConstructor

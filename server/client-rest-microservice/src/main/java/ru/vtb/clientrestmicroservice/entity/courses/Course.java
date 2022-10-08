@@ -9,9 +9,11 @@ import ru.vtb.clientrestmicroservice.entity.BaseEntity;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
+import javax.persistence.Table;
 import java.util.List;
 
 @Entity
+@Table(name = "slide", schema = "transaction_management")
 @Getter
 @Setter
 @RequiredArgsConstructor

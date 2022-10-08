@@ -1,0 +1,244 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+<!--    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>-->
+</head>
+<body>
+
+<div id="App" class="container-fluid"></div>
+<script type="text/html" template="components/common/header">
+<header class="row">
+    <div class="logo col-3 px-5 py-3" page="index">Hello</div>
+    {{ components/common/navbar }}
+    <div class="col-3"></div>
+</header>
+
+
+</script><script type="text/html" template="components/common/navbar">
+<ul class="navbar col-6 nav d-flex justify-content-center">
+    <li class="navbar-item nav-item" page="transactions"><a class="nav-link" href="#!">Транзакции</a></li>
+    <li class="navbar-item nav-item" page="marketplace"><a class="nav-link" href="#!">Маркетплейс</a></li>
+    <li class="navbar-item nav-item" page="users"><a class="nav-link" href="#!">Другие люди</a></li>
+    <li class="navbar-item nav-item" page="notifications"><a class="nav-link" href="#!">Уведомления</a></li>
+</ul>
+</script><script type="text/html" template="components/entity/transaction">
+<div class="row transaction-item">
+    <div class="col-3">
+        {{ hash }}
+    </div>
+    <div class="col-3">
+        {{ status }}
+    </div>
+</div>
+
+
+
+</script><script type="text/html" template="pages/index">
+<div class="h1">Добрый день</div>
+<div dynamic-page-content="index"></div>
+
+
+</script><script type="text/html" template="pages/transactions">
+<div class="h1">Транзакции</div>
+
+<div dynamic-page-content="transactions"></div>
+
+
+</script><script type="text/html" template="pages/marketplace">
+<div class="h1">Здесь будет маркетплейс</div>
+</script><script type="text/html" template="pages/users">
+<div class="h1">Здесь будут другие пользователи</div>
+</script><script type="text/html" template="pages/notifications">
+<div class="h1">Здесь будут ваши уведомления</div>
+</script><script type="text/html" template="pages/auth">
+<form>
+    <input type="text" name="login" placeholder="Логин" />
+    <input type="password" name="password" placeholder="Пароль" />
+    <button auth-action="auth">Войти</button>
+</form>
+
+
+</script><script type="text/html" template="pages/App">
+{{ components/common/header }}
+<div class="app-content container pt-5">
+    {{content}}
+</div>
+
+
+</script>
+
+<script type="text/javascript" src="/assets/index.js"></script>
+<script type="text/javascript" src="/assets/Component.js"></script>
+<script type="text/javascript" src="/assets/api.js"></script>
+<script type="text/javascript" src="/assets/Auth.js"></script>
+<script type="text/javascript" src="/assets/User.js"></script>
+
+<script type="text/javascript">
+    class Transaction extends Component {
+
+        constructor(args) {
+            super(args)
+            this.args = args
+            console.log(args)
+
+            const temp = document.createElement('div')
+            temp.innerHTML = window.render('components/entity/transaction', args)
+            this.el = temp.children[0]
+        }
+
+        render = () => {
+            return this.el
+        }
+
+    }
+</script>
+<script type="text/javascript">
+    class PageIndex extends Component {
+
+        render = () => {
+            return new Promise((resolve, reject) => {
+
+                setTimeout(() => {
+                    this.getDynamicContent().innerHTML = 'Content loaded'
+                    resolve()
+                }, 1000)
+
+            })
+        }
+
+    }
+</script>
+<script type="text/javascript">
+    class PageTransactions extends Component {
+
+        render = () => {
+            return new Promise((resolve, reject) => {
+
+                this.getTransactions({size: 10})
+                    .then(transactions => {
+                        const elements = []
+                        transactions.map(transaction => {
+                            const t = new Transaction({...transaction, app: this.app})
+                            elements.push(t.render())
+                        })
+                        resolve()
+                        const dynamic_content = this.getDynamicContent()
+                        if(dynamic_content){
+                            dynamic_content.innerHTML = ''
+                            dynamic_content.append(...elements)
+                            console.log(elements)
+                        }
+                    })
+
+            })
+        }
+
+        getTransactions = (args = {}) => {
+            const page = Math.max(1, args.page * 1)
+            const size = Math.max(1, Math.min(100, args.size))
+
+            return new Promise((resolve, reject) => {
+                // TODO: get transactions from api by page
+                resolve([
+                    {hash: 'abcdefghijklmnop', status: 'Выполняется'},
+                    {hash: 'abcdefghijklmnop', status: 'Выполняется'},
+                    {hash: 'abcdefghijklmnop', status: 'Выполняется'},
+                    {hash: 'abcdefghijklmnop', status: 'Выполняется'},
+                ])
+            })
+        }
+
+    }
+</script>
+<script type="text/javascript">
+    class PageAuth extends Component {
+
+        render = () => {
+            return new Promise((resolve, reject) => {
+
+                resolve()
+
+            })
+        }
+
+        addListeners = () => {
+            const l = (e) => {
+                let el = e.target
+                let action = false
+                while(el){
+                    action = el.getAttribute('auth-action')
+                    if(action) break
+                    el = el.parentElement
+                }
+                if(action === 'auth'){
+                    e.preventDefault()
+                    const login = this.el.querySelector('input[name=login]')
+                    const password = this.el.querySelector('input[name=password]')
+                    window.auth.authorize(login.value, password.value).then(user => {
+                        if(user){
+                            alert('Вы авторизованы!')
+                            window.changePage('index')
+                        }else{
+                            this.el.querySelectorAll('input').forEach(el => el.value = '')
+                        }
+                    })
+                }
+            }
+            this.listeners.push(l)
+        }
+
+    }
+</script>
+<script type="text/javascript">
+    class App {
+
+        constructor(args = {}) {
+            this.el = document.createElement('div')
+            this.el.classList.add('app')
+            this.page = args.page ? args.page : 'index'
+            this.listeners = []
+        }
+
+        render = () => {
+            return new Promise((resolve, reject) => {
+                const params = {}
+                params['content'] = window.templates['pages/' + this.page]
+                // TODO: отрисовка страницы с получением данных
+                this.el.innerHTML = render('pages/App', params)
+                resolve(this.el)
+
+                if(window.pages[this.page]){
+                    const pageEl = window.pages[this.page](this)
+                    pageEl.render().then(() => {
+                        pageEl.addListeners()
+                        this.listeners.push(...pageEl.getListeners())
+                    })
+                }
+            })
+        }
+
+        getListeners = () => this.listeners
+
+    }
+</script>
+
+<style>
+    
+    header {
+        background-color: #333;
+        color: #0063ff;
+    }
+    header a:hover {
+        color: #ddd;
+    }
+</style>
+</body>
+</html>
+
+
