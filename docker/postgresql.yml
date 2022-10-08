@@ -4,13 +4,15 @@ services:
     container_name: postgresql-vtb-web-db
     image: postgres:latest
     environment:
-      POSTGRES_DB: "vtb"
-      POSTGRES_USER: "admin"
-      POSTGRES_PASSWORD: "qwerty"
+      - DATABASE_HOST=127.0.0.1
+      - POSTGRES_USER=root
+      - POSTGRES_PASSWORD=root
+      - POSTGRES_DB=root
     ports:
       - "5432:5432"
     volumes:
-      - ./db/init.sql:/docker-entry-point-initdb.d/init.sql
+      - ./db/init.sql:/docker-entrypoint-initdb.d/init.sql
+#      - ./db/init.sql:/docker-entry-point-initdb.d/init.sql
   adminer-postgresql-vtb-web-db:
     container_name: adminer-postgresql-vtb-web-db
     image: dpage/pgadmin4

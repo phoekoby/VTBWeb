@@ -11,7 +11,7 @@ import java.io.Serializable;
 
 @Data
 //@Builder
-//@NoArgsConstructor
+@NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode(callSuper = true)
 public class CreateUserDTO extends AbstractUserDTO implements Serializable {
