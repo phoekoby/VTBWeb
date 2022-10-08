@@ -137,6 +137,15 @@ CREATE TABLE transaction_management.user_slide
     update_date       timestamp                                                NOT NULL DEFAULT now()
 );
 
+CREATE TABLE transaction_management.user_products
+(
+    id              BIGSERIAL PRIMARY KEY,
+    user_account_id int8 references transaction_management.user_account (id) NOT NULL,
+    product_id      int8                                                     NOT NULL,
+    create_date     timestamp                                                NOT NULL DEFAULT now(),
+    update_date     timestamp                                                NOT NULL DEFAULT now()
+);
+
 CREATE TABLE transaction_management.wallet
 (
     id              BIGSERIAL PRIMARY KEY,
@@ -149,12 +158,16 @@ CREATE TABLE transaction_management.wallet
 
 CREATE TABLE transaction_management.transaction
 (
-    id               BIGSERIAL PRIMARY KEY,
-    transaction_hash varchar(255)                                       NOT NULL,
-    from_wallet_id   int8 references transaction_management.wallet (id) NOT NULL,
-    to_wallet_id     int8 references transaction_management.wallet (id) NOT NULL,
-    create_date      timestamp                                          NOT NULL DEFAULT now(),
-    update_date      timestamp                                          NOT NULL DEFAULT now()
+    id                 BIGSERIAL PRIMARY KEY,
+    transaction_hash   varchar(255)                                       NOT NULL,
+    from_wallet_id     int8 references transaction_management.wallet (id) NOT NULL,
+    to_wallet_id       int8 references transaction_management.wallet (id) NOT NULL,
+    transaction_status varchar(20)                                        NOT NULL,
+    transaction_type   varchar(10)                                        NOT NULL,
+    currency           varchar(10)                                        NOT NULL,
+    amount             float4                                             NOT NULL,
+    create_date        timestamp                                          NOT NULL DEFAULT now(),
+    update_date        timestamp                                          NOT NULL DEFAULT now()
 );
 
 CREATE TABLE transaction_management.exchange
@@ -189,6 +202,26 @@ CREATE TABLE transaction_management.nft_picture
     update_date timestamp    NOT NULL DEFAULT now()
 );
 
+CREATE TABLE transaction_management.category
+(
+    id          BIGSERIAL PRIMARY KEY,
+    name        varchar(255) NOT NULL,
+    create_date timestamp    NOT NULL DEFAULT now(),
+    update_date timestamp    NOT NULL DEFAULT now()
+);
+
+CREATE TABLE transaction_management.course_category
+(
+    course_id   int8 references transaction_management.course (id),
+    category_id int8 references transaction_management.category (id)
+);
+
+CREATE INDEX course_category_index on transaction_management.course_category
+    (
+     course_id,
+     category_id
+        );
+
 CREATE TABLE transaction_management.slides_pictures
 (
     slide_id   int8 references transaction_management.slide (id),
@@ -217,9 +250,19 @@ CREATE TABLE market_management.product
     id            BIGSERIAL PRIMARY KEY,
     owner_user_id int8         NOT NULL,
     name          varchar(255) NOT NULL,
-    cost          float4       NOT NULL,
     create_date   timestamp    NOT NULL DEFAULT now(),
     update_date   timestamp    NOT NULL DEFAULT now()
+);
+
+CREATE TABLE market_management.cost
+(
+    id          BIGSERIAL PRIMARY KEY,
+    ruble       float4,
+    matic       float4,
+    nft         int4,
+    product_id  int8 references market_management.product (id),
+    create_date timestamp NOT NULL DEFAULT now(),
+    update_date timestamp NOT NULL DEFAULT now()
 );
 
 CREATE TABLE market_management.category
@@ -244,7 +287,7 @@ CREATE INDEX product_pictures_index on market_management.product_pictures
 
 CREATE TABLE market_management.product_category
 (
-    product_id int8 references market_management.product (id),
+    product_id  int8 references market_management.product (id),
     category_id int8 references market_management.category (id)
 );
 

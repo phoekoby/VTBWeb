@@ -1,7 +1,7 @@
 package ru.vtb.clientrestmicroservice.dto.input;
 
 import lombok.Data;
-import ru.vtb.clientrestmicroservice.entity.Currency;
+import ru.vtb.clientrestmicroservice.entity.transaction.Currency;
 
 @Data
 public class TransferDto {

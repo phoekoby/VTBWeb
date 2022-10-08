@@ -4,7 +4,6 @@ import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import ru.vtb.clientrestmicroservice.entity.BaseEntity;
-import ru.vtb.clientrestmicroservice.entity.Picture;
 
 import javax.persistence.*;
 import java.util.List;

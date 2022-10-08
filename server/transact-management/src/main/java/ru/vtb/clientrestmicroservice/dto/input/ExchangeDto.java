@@ -4,7 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import ru.vtb.clientrestmicroservice.entity.Currency;
+import ru.vtb.clientrestmicroservice.entity.transaction.Currency;
 
 @Data
 @NoArgsConstructor

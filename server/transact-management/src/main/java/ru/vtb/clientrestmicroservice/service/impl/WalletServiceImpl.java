@@ -2,6 +2,7 @@ package ru.vtb.clientrestmicroservice.service.impl;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -13,8 +14,9 @@ import ru.vtb.clientrestmicroservice.dto.moneyApi.ApiBalanceDto;
 import ru.vtb.clientrestmicroservice.dto.moneyApi.ApiWalletDto;
 import ru.vtb.clientrestmicroservice.dto.output.OutputWalletDto;
 import ru.vtb.clientrestmicroservice.dto.output.OutputWalletHistory;
-import ru.vtb.clientrestmicroservice.entity.Wallet;
+import ru.vtb.clientrestmicroservice.entity.transaction.Wallet;
 import ru.vtb.clientrestmicroservice.repository.WalletRepository;
+import ru.vtb.clientrestmicroservice.service.TransactionService;
 import ru.vtb.clientrestmicroservice.service.UserAccountService;
 import ru.vtb.clientrestmicroservice.service.WalletService;
 
@@ -31,6 +33,7 @@ public class WalletServiceImpl implements WalletService {
     private String baseUrl;
     private final WalletRepository walletRepository;
     private final UserAccountService userAccountService;
+    private final TransactionService transactionService;
 
     @Override
     public List<OutputWalletDto> getWallets(UserDto userDto) {
@@ -85,13 +88,11 @@ public class WalletServiceImpl implements WalletService {
     }
 
     @Override
-    public OutputWalletHistory getHistory(Long walletId, Long page, Long offset, String sort) {
-        Optional<Wallet> walletOptional = walletRepository.findById(walletId);
-        if(walletOptional.isPresent()){
-            Wallet wallet = walletOptional.get();
-
-        }
-        return null;
+    public OutputWalletHistory getHistory(Long walletId, Pageable pageable) {
+        return OutputWalletHistory.builder()
+                .walletId(walletId)
+                .transactions(transactionService.getTransfersByWalletId(walletId, pageable))
+                .build();
     }
 
 }

@@ -1,4 +1,6 @@
-package ru.vtb.clientrestmicroservice.entity;
+package ru.vtb.clientrestmicroservice.entity.transaction;
+
+import ru.vtb.clientrestmicroservice.entity.BaseEntity;
 
 import javax.persistence.*;
 
@@ -17,8 +19,8 @@ public class Exchange extends BaseEntity {
     private String hashCode;
 
     @Column(name = "currency_from")
-    private Currency from;
+    private Currency currencyFrom;
 
     @Column(name = "currency_to")
-    private Currency to;
+    private Currency currencyTo;
 }
