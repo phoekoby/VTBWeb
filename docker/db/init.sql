@@ -87,11 +87,12 @@ CREATE INDEX role_privileges_index on user_management.roles_privileges
 
 CREATE TABLE transaction_management.user_account
 (
-    id             BIGSERIAL PRIMARY KEY,
-    user_id        int8      NOT NULL,
-    daily_multiply float4    NOT NULL,
-    create_date    timestamp NOT NULL DEFAULT now(),
-    update_date    timestamp NOT NULL DEFAULT now()
+    id                 BIGSERIAL PRIMARY KEY,
+    daily_multiply     float4    NOT NULL,
+    user_id            int8      NOT NULL,
+    last_activity_date timestamp NOT NULL DEFAULT now(),
+    create_date        timestamp NOT NULL DEFAULT now(),
+    update_date        timestamp NOT NULL DEFAULT now()
 );
 
 CREATE TABLE transaction_management.course
