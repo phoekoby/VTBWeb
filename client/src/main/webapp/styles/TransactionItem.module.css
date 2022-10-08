@@ -10,4 +10,18 @@
 .transactionItem:hover {
     background-color: #4ea3f8;
 }
+.detail {
+    justify-content: flex-end;
+}
+.detailCol {
+    text-align: center;
+    padding: 15px 0 10px;
+    font-size: 16px;
+}
+.detailCol img {
+    margin: -5px 10px 0;
+}
+.info {
+    text-align: center;
+}
 
