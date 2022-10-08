@@ -4,6 +4,7 @@ import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import ru.vtb.clientrestmicroservice.entity.BaseEntity;
+import ru.vtb.clientrestmicroservice.entity.UserAccount;
 
 import javax.persistence.*;
 
@@ -13,8 +14,9 @@ import javax.persistence.*;
 @RequiredArgsConstructor
 public class UserSlide extends BaseEntity {
 
-    @Column(name = "user_id")
-    private Long userId;
+    @ManyToOne
+    @JoinColumn(name = "user_account_id")
+    private UserAccount userAccount;
 
     @OneToOne
     @JoinColumn(name = "slide_id")
