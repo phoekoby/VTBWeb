@@ -89,6 +89,7 @@ CREATE TABLE transaction_management.user_account
 (
     id                 BIGSERIAL PRIMARY KEY,
     daily_multiply     float4    NOT NULL DEFAULT 1.104,
+    day_streak         int4      NOT NULL DEFAULT 0,
     user_id            int8      NOT NULL,
     last_activity_date timestamp NOT NULL DEFAULT now(),
     create_date        timestamp NOT NULL DEFAULT now(),
@@ -162,6 +163,8 @@ CREATE TABLE transaction_management.exchange
     in_transaction_id  int8 references transaction_management.transaction (id) NOT NULL,
     out_transaction_id int8 references transaction_management.transaction (id) NOT NULL,
     hash               varchar(255)                                            NOT NULL,
+    currency_from      varchar(10)                                             NOT NULL,
+    currency_to        varchar(10)                                             NOT NULL,
     create_date        timestamp                                               NOT NULL DEFAULT now(),
     update_date        timestamp                                               NOT NULL DEFAULT now()
 );
@@ -278,7 +281,8 @@ INSERT INTO transaction_management.user_account(user_id)
 VALUES (1);
 
 INSERT INTO transaction_management.wallet(public_key, private_key, user_account_id)
-VALUES ('0x4141dcc89b1EfB14101d337A5436A8244E3aa6B3', '60daafc3d26d00b086fc072ed99a487e02a3a72c995b2a7e094576b948afdb10', 1);
+VALUES ('0x4141dcc89b1EfB14101d337A5436A8244E3aa6B3',
+        '60daafc3d26d00b086fc072ed99a487e02a3a72c995b2a7e094576b948afdb10', 1);
 
 --------------------------------------------------------------------------------------------------
 --------------------------------------------------------------------------------------------------
