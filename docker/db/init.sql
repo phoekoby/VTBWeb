@@ -149,12 +149,16 @@ CREATE TABLE transaction_management.wallet
 
 CREATE TABLE transaction_management.transaction
 (
-    id               BIGSERIAL PRIMARY KEY,
-    transaction_hash varchar(255)                                       NOT NULL,
-    from_wallet_id   int8 references transaction_management.wallet (id) NOT NULL,
-    to_wallet_id     int8 references transaction_management.wallet (id) NOT NULL,
-    create_date      timestamp                                          NOT NULL DEFAULT now(),
-    update_date      timestamp                                          NOT NULL DEFAULT now()
+    id                 BIGSERIAL PRIMARY KEY,
+    transaction_hash   varchar(255)                                       NOT NULL,
+    from_wallet_id     int8 references transaction_management.wallet (id) NOT NULL,
+    to_wallet_id       int8 references transaction_management.wallet (id) NOT NULL,
+    transaction_status varchar(20)                                        NOT NULL,
+    transaction_type   varchar(10)                                        NOT NULL,
+    currency           varchar(10)                                        NOT NULL,
+    amount             float4                                             NOT NULL,
+    create_date        timestamp                                          NOT NULL DEFAULT now(),
+    update_date        timestamp                                          NOT NULL DEFAULT now()
 );
 
 CREATE TABLE transaction_management.exchange
@@ -187,6 +191,26 @@ CREATE TABLE transaction_management.nft_picture
     url         varchar(255) NOT NULL,
     create_date timestamp    NOT NULL DEFAULT now(),
     update_date timestamp    NOT NULL DEFAULT now()
+);
+
+CREATE TABLE transaction_management.category
+(
+    id          BIGSERIAL PRIMARY KEY,
+    name        varchar(255) NOT NULL,
+    create_date timestamp    NOT NULL DEFAULT now(),
+    update_date timestamp    NOT NULL DEFAULT now()
+);
+
+CREATE TABLE transaction_management.course_category
+(
+    course_id   int8 references transaction_management.course (id),
+    category_id int8 references transaction_management.category (id)
+);
+
+CREATE INDEX course_category_index on transaction_management.course_category
+(
+    course_id,
+    category_id
 );
 
 CREATE TABLE transaction_management.slides_pictures
@@ -231,9 +255,6 @@ CREATE TABLE market_management.cost
     create_date timestamp NOT NULL DEFAULT now(),
     update_date timestamp NOT NULL DEFAULT now()
 );
-
-alter table market_management.product
-    add constraint cost_id FOREIGN KEY (id) references market_management.cost (id);
 
 CREATE TABLE market_management.category
 (
