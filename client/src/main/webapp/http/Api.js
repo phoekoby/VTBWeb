@@ -6,12 +6,17 @@ export default class Api {
 
     }
 
-    request = (route, params, method = 'GET') => {
+    request = (route, params, method = 'GET', port = '8080') => {
+        const url = api_url.replace(':8080', ':' + port) + route
         return new Promise((resolve, reject) => {
             const xhr = new XMLHttpRequest()
-            xhr.open(method, api_url + route, true)
+            xhr.open(method, url, true)
             xhr.setRequestHeader('Content-Type', 'application/json;charset=UTF-8')
-            xhr.send(JSON.stringify(params))
+            if(method === 'POST'){
+                xhr.send(JSON.stringify(params))
+            }else{
+                xhr.send()
+            }
             xhr.onreadystatechange = function(){
                 if(xhr.readyState === 4){
                     if(xhr.status === 200){
@@ -23,6 +28,10 @@ export default class Api {
                 }
             }
         })
+    }
+
+    getProducts = (args) => {
+
     }
 
 }
