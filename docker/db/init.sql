@@ -151,7 +151,7 @@ CREATE TABLE transaction_management.transaction
     id               BIGSERIAL PRIMARY KEY,
     transaction_hash varchar(255)                                       NOT NULL,
     from_wallet_id   int8 references transaction_management.wallet (id) NOT NULL,
-    to_wallet_id     int8 references transaction_management.slide (id)  NOT NULL,
+    to_wallet_id     int8 references transaction_management.wallet (id)  NOT NULL,
     create_date      timestamp                                          NOT NULL DEFAULT now(),
     update_date      timestamp                                          NOT NULL DEFAULT now()
 );
@@ -159,11 +159,11 @@ CREATE TABLE transaction_management.transaction
 CREATE TABLE transaction_management.exchange
 (
     id                 BIGSERIAL PRIMARY KEY,
-    in_transaction_id  int8                                              NOT NULL,
-    out_transaction_id int8 references transaction_management.slide (id) NOT NULL,
-    hash               varchar(255)                                      NOT NULL,
-    create_date        timestamp                                         NOT NULL DEFAULT now(),
-    update_date        timestamp                                         NOT NULL DEFAULT now()
+    in_transaction_id  int8 references transaction_management.transaction (id) NOT NULL,
+    out_transaction_id int8 references transaction_management.transaction (id)  NOT NULL,
+    hash               varchar(255)                                       NOT NULL,
+    create_date        timestamp                                          NOT NULL DEFAULT now(),
+    update_date        timestamp                                          NOT NULL DEFAULT now()
 );
 
 CREATE TABLE transaction_management.purchase
