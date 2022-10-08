@@ -27,10 +27,10 @@ const NavBar = observer(() => {
     return (
         <Navbar className={styles.navbar} bg="dark" variant="dark">
             <Container>
-                <NavLink  to={SHOP_ROUTE} className={styles.logo}>ВТБХАК</NavLink>
+                <NavLink  to={SHOP_ROUTE} className={styles.logo}>ВТБ</NavLink>
                 <NavLink to={TRANSACTIONS_ROUTE} className={styles.button}>Транзакции</NavLink>
                 <NavLink to={COURSES_ROUTE} className={styles.button}>Курсы</NavLink>
-                <NavLink to={USERS_ROUTE} className={styles.button}>Другие люди</NavLink>
+                <NavLink to={USERS_ROUTE} className={styles.button}>Пользователи</NavLink>
                 <NavLink to={NOTIFICATIONS_ROUTE} className={styles.button}>Уведомления</NavLink>
                 {user.isAuth ?
                     <Nav style={{color: "white"}}>
