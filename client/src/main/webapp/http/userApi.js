@@ -36,12 +36,14 @@ const api = new Api()
 // }
 
 export const login = async (email,password) => {
+    console.log('login')
     const {data} = await $host.post('/authorize',{email,password})
     localStorage.setItem('token',data.token)
     return jwtDecode(data.token)
 }
 
 export const checkToken = async() => {
+    console.log('checkToken')
     const {data} = await $authHost.get('/authorize')
     localStorage.setItem('token',data.token)
     return jwtDecode(data.token)

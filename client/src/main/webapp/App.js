@@ -56,14 +56,18 @@ import {checkToken} from "./http/userApi";
 
 
 export const App = observer(() => {
+    console.log('App start')
     const {user} = useContext(Context)
+    console.log('App start 2')
     const [loading, setLoading] = useState(false)
+    console.log('App start 3')
     useEffect(() => {
         checkToken().then(data => {
             user.setUser(data)
             user.setIsAuth(true)
         }).finally(() => setLoading(false))
     },[])
+    console.log('App')
     
     if(loading){
         return <Spinner animation={"border"}/>

@@ -20,4 +20,5 @@ $authHost.interceptors.request.use(authInterceptor)
 export {
     $host,
     $authHost,
+    api_url
 }
