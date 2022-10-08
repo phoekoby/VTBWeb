@@ -22,6 +22,7 @@
     <modules>
         <module>transact-management</module>
         <module>marketplace-management</module>
+        <module>gamification-management</module>
     </modules>
 
     <dependencies>
