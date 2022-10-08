@@ -9,11 +9,11 @@
         <version>1.0-SNAPSHOT</version>
     </parent>
 
-    <artifactId>server-rpc-microservice</artifactId>
+    <artifactId>marketplace-management</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>server-rpc-microservice</name>
+    <name>marketplace-management</name>
     <packaging>jar</packaging>
-    <description>server-rpc-microservice</description>
+    <description>marketplace-management</description>
 
     <properties>
         <java.version>11</java.version>

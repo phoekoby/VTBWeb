@@ -1,9 +1,11 @@
 package ru.vtb.clientrestmicroservice.service.impl;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
@@ -22,6 +24,7 @@ import ru.vtb.clientrestmicroservice.service.TransactionRabbitService;
 import ru.vtb.clientrestmicroservice.service.TransactionService;
 
 @Service
+@Slf4j
 @RequiredArgsConstructor
 public class TransactionServiceImpl implements TransactionService {
     private final RestTemplate restTemplate;
@@ -48,7 +51,9 @@ public class TransactionServiceImpl implements TransactionService {
                     .build();
             String url = createUrl(transferDto.getCurrency());
             HttpHeaders httpHeaders = new HttpHeaders();
-            HttpEntity<String> httpEntity = new HttpEntity<>(apiTransferDto.toString(), httpHeaders);
+            httpHeaders.setContentType(MediaType.APPLICATION_JSON);
+
+            HttpEntity<ApiTransferDto> httpEntity = new HttpEntity<>(apiTransferDto, httpHeaders);
             ResponseEntity<String> stringResponseEntity = restTemplate.postForEntity(url, httpEntity, String.class);
             String hash = stringResponseEntity.getBody();
             Transaction transaction = new Transaction();

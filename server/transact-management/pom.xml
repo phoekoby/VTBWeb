@@ -13,8 +13,8 @@
     <packaging>jar</packaging>
     <artifactId>transact-management</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>client-rest-microservice</name>
-    <description>client-rest-microservice</description>
+    <name>transact-management</name>
+    <description>transact-management</description>
 
     <properties>
         <java.version>11</java.version>
