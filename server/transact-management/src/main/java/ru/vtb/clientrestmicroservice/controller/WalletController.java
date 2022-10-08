@@ -1,6 +1,7 @@
 package ru.vtb.clientrestmicroservice.controller;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -32,11 +33,8 @@ public class WalletController {
 
 
     @GetMapping("/{id}/history")
-    public ResponseEntity<OutputWalletHistory> getHistory(@PathVariable Long id,
-                                          @RequestParam(required = false, defaultValue = "1L") Long page,
-                                          @RequestParam(required = false, defaultValue = "1L") Long offset,
-                                          @RequestParam(required = false, defaultValue = "asc") String sort){
-        return ResponseEntity.ok(walletService.getHistory(id, page, offset, sort));
+    public ResponseEntity<OutputWalletHistory> getHistory(@PathVariable Long id, Pageable page){
+        return ResponseEntity.ok(walletService.getHistory(id, page));
 
     }
 }

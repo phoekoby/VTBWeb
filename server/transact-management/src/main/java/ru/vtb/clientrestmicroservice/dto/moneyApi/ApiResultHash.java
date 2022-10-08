@@ -5,10 +5,8 @@ import lombok.Builder;
 import lombok.Data;
 
 @Data
-@AllArgsConstructor
 @Builder
-public class ApiWalletHistory extends ApiWalletHistoryAbs{
-    private Long value;
-
-
+@AllArgsConstructor
+public class ApiResultHash {
+    private String transactionHash;
 }
