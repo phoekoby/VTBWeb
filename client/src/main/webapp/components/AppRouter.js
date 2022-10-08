@@ -2,7 +2,7 @@ import React, {useContext} from 'react';
 import {Routes, Route} from 'react-router-dom'
 import {authRoutes, publicRoutes} from "../routes";
 import Shop from "../pages/Shop";
-import {Context} from "../index";
+import {Context} from "../../../index";
 
 const AppRouter = () => {
     const {user} = useContext(Context)
