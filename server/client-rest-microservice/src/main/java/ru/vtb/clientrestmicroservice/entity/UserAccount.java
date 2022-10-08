@@ -3,11 +3,13 @@ package ru.vtb.clientrestmicroservice.entity;
 
 import lombok.*;
 import org.hibernate.Hibernate;
+import ru.vtb.clientrestmicroservice.entity.courses.UserSlide;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 import java.util.Date;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -26,6 +28,7 @@ public class UserAccount extends BaseEntity{
 
     @Column(name = "last_activity_date")
     private Date date;
+
 
     @Override
     public boolean equals(Object o) {
