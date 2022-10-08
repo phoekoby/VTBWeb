@@ -24,9 +24,8 @@ public class Purchase extends BaseEntity {
     @JoinColumn(name = "buyer_user_account_id")
     private UserAccount buyerUser;
 
-    @ManyToOne
-    @JoinColumn(name = "product_id")
-    private Product product;
+    @Column(name = "product_id")
+    private Long productId;
 
     @Column(name = "cost")
     private Double cost;

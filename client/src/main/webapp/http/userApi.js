@@ -3,7 +3,7 @@ import {$host,$authHost} from "./index";
 import jwtDecode from "jwt-decode";
 
 
-const api = new Api()
+//const api = new Api()
 
 // export const checkToken = async (login, password) => {
 //     return api.request('/authorize', {login, password}, 'POST')

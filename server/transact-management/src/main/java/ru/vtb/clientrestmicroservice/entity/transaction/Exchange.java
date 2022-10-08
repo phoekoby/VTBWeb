@@ -1,11 +1,18 @@
 package ru.vtb.clientrestmicroservice.entity.transaction;
 
+import lombok.*;
+import org.hibernate.Hibernate;
 import ru.vtb.clientrestmicroservice.entity.BaseEntity;
 
 import javax.persistence.*;
+import java.util.Objects;
 
 @Entity
 @Table(name = "exchange", schema = "transaction_management")
+@Getter
+@Setter
+@ToString
+@RequiredArgsConstructor
 public class Exchange extends BaseEntity {
     @OneToOne
     @JoinColumn(name = "in_transaction_id")
@@ -23,4 +30,17 @@ public class Exchange extends BaseEntity {
 
     @Column(name = "currency_to")
     private Currency currencyTo;
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
+        Exchange exchange = (Exchange) o;
+        return getId() != null && Objects.equals(getId(), exchange.getId());
+    }
+
+    @Override
+    public int hashCode() {
+        return getClass().hashCode();
+    }
 }
