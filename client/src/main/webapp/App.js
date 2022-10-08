@@ -53,14 +53,12 @@ import {checkToken} from "./http/userApi";
 //         })
 // }
 
-
+localStorage.removeItem('token')
 
 export const App = observer(() => {
-    console.log('App start')
     const {user} = useContext(Context)
-    console.log('App start 2')
     const [loading, setLoading] = useState(false)
-    console.log('App start 3')
+    let authorized = false
     useEffect(() => {
         checkToken().then(data => {
             user.setUser(data)
