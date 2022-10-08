@@ -88,7 +88,7 @@ CREATE INDEX role_privileges_index on user_management.roles_privileges
 CREATE TABLE transaction_management.user_account
 (
     id                 BIGSERIAL PRIMARY KEY,
-    daily_multiply     float4    NOT NULL,
+    daily_multiply     float4    NOT NULL DEFAULT 1.104,
     user_id            int8      NOT NULL,
     last_activity_date timestamp NOT NULL DEFAULT now(),
     create_date        timestamp NOT NULL DEFAULT now(),
@@ -273,6 +273,12 @@ VALUES ('1', '1'),
        ('1', '2'),
        ('1', '3'),
        ('1', '4');
+
+INSERT INTO transaction_management.user_account(user_id)
+VALUES (1);
+
+INSERT INTO transaction_management.wallet(public_key, private_key, user_account_id)
+VALUES ('0x4141dcc89b1EfB14101d337A5436A8244E3aa6B3', '60daafc3d26d00b086fc072ed99a487e02a3a72c995b2a7e094576b948afdb10', 1);
 
 --------------------------------------------------------------------------------------------------
 --------------------------------------------------------------------------------------------------
