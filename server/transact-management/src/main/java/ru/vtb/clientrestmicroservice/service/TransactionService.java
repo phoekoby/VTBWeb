@@ -16,7 +16,7 @@ import java.util.List;
 
 @Service
 public interface TransactionService {
-    OutTransferDto doTransfer(TransferDto transferDto);
+    OutTransactionDto doTransfer(TransferDto transferDto);
     OutTransactionDto doExchange(ExchangeDto exchangeDto);
     OutTransactionDto doPurchase(PurchaseDto purchaseDto);
     String getStatus(String hash);

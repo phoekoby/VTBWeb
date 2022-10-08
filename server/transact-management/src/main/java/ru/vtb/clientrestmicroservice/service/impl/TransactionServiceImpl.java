@@ -93,9 +93,9 @@ public class TransactionServiceImpl implements TransactionService {
     }
 
     @Override
-    public OutTransferDto doTransfer(TransferDto transferDto) {
+    public OutTransactionDto doTransfer(TransferDto transferDto) {
         Transaction transaction = doTransferPrivate(transferDto);
-        return OutTransferDto.builder()
+        return OutTransactionDto.builder()
                 .hash(transaction.getTransactionHash())
                 .id(transaction.getId())
                 .build();
