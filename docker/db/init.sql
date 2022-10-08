@@ -137,6 +137,15 @@ CREATE TABLE transaction_management.user_slide
     update_date       timestamp                                                NOT NULL DEFAULT now()
 );
 
+CREATE TABLE transaction_management.user_products
+(
+    id              BIGSERIAL PRIMARY KEY,
+    user_account_id int8 references transaction_management.user_account (id) NOT NULL,
+    product_id      int8                                                     NOT NULL,
+    create_date     timestamp                                                NOT NULL DEFAULT now(),
+    update_date     timestamp                                                NOT NULL DEFAULT now()
+);
+
 CREATE TABLE transaction_management.wallet
 (
     id              BIGSERIAL PRIMARY KEY,
@@ -208,10 +217,10 @@ CREATE TABLE transaction_management.course_category
 );
 
 CREATE INDEX course_category_index on transaction_management.course_category
-(
-    course_id,
-    category_id
-);
+    (
+     course_id,
+     category_id
+        );
 
 CREATE TABLE transaction_management.slides_pictures
 (
