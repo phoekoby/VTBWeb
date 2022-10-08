@@ -10,7 +10,7 @@ import java.util.List;
 
 @Service
 public interface WalletService {
-    List<OutputWalletDto> getWallets(UserDto userDto);
+    List<OutputWalletDto> getWallets(Long userId);
     Long createNewWallet(UserDto userDto);
     OutputWalletDto getBalance(Long walletId);
     OutputWalletHistory getHistory(Long walletId, Pageable pageable);

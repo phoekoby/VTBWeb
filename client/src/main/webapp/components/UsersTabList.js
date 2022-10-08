@@ -2,7 +2,6 @@ import React from 'react';
 import {Tab, Tabs} from "react-bootstrap";
 import styles from "../styles/Users.module.css";
 import UsersScroll from "./UsersScroll";
-import TipTransactionModal from "./TipTransactionModal";
 
 const UsersTabList = () => {
 

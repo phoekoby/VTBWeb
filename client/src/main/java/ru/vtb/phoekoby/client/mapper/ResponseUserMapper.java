@@ -2,8 +2,6 @@ package ru.vtb.phoekoby.client.mapper;
 
 import org.springframework.stereotype.Component;
 import ru.vtb.phoekoby.client.domain.User;
-import ru.vtb.phoekoby.client.dto.AbstractUserDTO;
-import ru.vtb.phoekoby.client.dto.create.CreateUserDTO;
 import ru.vtb.phoekoby.client.dto.response.ResponseUserDTO;
 
 import java.util.List;

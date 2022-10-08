@@ -8,7 +8,6 @@ import ru.vtb.phoekoby.client.dto.create.CreateRequestDTO;
 import ru.vtb.phoekoby.client.dto.response.ResponseRequestDTO;
 import ru.vtb.phoekoby.client.service.RequestService;
 
-import java.net.URI;
 import java.util.List;
 
 @RestController

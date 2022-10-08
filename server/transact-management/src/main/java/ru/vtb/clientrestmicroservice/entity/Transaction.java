@@ -1,10 +1,9 @@
-package ru.vtb.clientrestmicroservice.entity.transaction;
+package ru.vtb.clientrestmicroservice.entity;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
-import ru.vtb.clientrestmicroservice.entity.BaseEntity;
 
 import javax.persistence.*;
 

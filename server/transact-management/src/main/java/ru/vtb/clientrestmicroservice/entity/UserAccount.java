@@ -5,7 +5,6 @@ import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import org.hibernate.Hibernate;
-import ru.vtb.clientrestmicroservice.entity.transaction.Purchase;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -19,26 +18,8 @@ import java.util.Objects;
 @RequiredArgsConstructor
 public class UserAccount extends BaseEntity{
 
-    @Column(name = "daily_multiply")
-    private Double dailyMultiply;
-
     @Column(name = "user_id")
     private Long userId;
-
-    @Column(name = "last_activity_date")
-    private Date lastActivityDate;
-
-    @Column(name = "day_streak")
-    private Integer dayStreak;
-
-    @Column(name = "level")
-    private Integer level;
-
-    @Column(name = "need_experience")
-    private Double needExperience;
-
-    @Column(name = "has_experience")
-    private Double hasExperience;
 
     @OneToMany(mappedBy = "buyerUser", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Purchase> myPurchases;

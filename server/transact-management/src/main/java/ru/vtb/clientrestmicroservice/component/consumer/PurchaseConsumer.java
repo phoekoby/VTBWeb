@@ -5,7 +5,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.stereotype.Component;
 import ru.vtb.clientrestmicroservice.dto.message.PurchaseMessageEventDto;
-import ru.vtb.clientrestmicroservice.dto.message.TransactionMessageEventDto;
 
 @Component
 @RequiredArgsConstructor

@@ -1,10 +1,10 @@
-package ru.vtb.clientrestmicroservice.entity.courses;
+package ru.vtb.phoekoby.gamificationmanagement.entity.courses;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
-import ru.vtb.clientrestmicroservice.entity.BaseEntity;
-import ru.vtb.clientrestmicroservice.entity.UserAccount;
+import ru.vtb.phoekoby.gamificationmanagement.entity.BaseEntity;
+import ru.vtb.phoekoby.gamificationmanagement.entity.PlayUserAccount;
 
 import javax.persistence.*;
 
@@ -17,7 +17,7 @@ public class UserSlide extends BaseEntity {
 
     @ManyToOne
     @JoinColumn(name = "user_account_id")
-    private UserAccount userAccount;
+    private PlayUserAccount userAccount;
 
     @OneToOne
     @JoinColumn(name = "slide_id")

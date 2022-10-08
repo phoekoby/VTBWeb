@@ -1,17 +1,10 @@
 import React, {useContext, useState} from 'react';
 import {Button, Card, Container, Form} from "react-bootstrap";
 import styles from "../styles/Auth.module.css";
-import {NavLink,useLocation} from "react-router-dom";
+import {NavLink, useLocation, useNavigate} from "react-router-dom";
 import {LOGIN_ROUTE, REGISTRATION_ROUTE, SHOP_ROUTE} from "../utils/consts";
 import {Context} from "../../../index";
-import {useNavigate} from "react-router-dom"
 import {observer} from "mobx-react-lite";
-import {login} from "../http/userApi";
-
-
-
-
-
 
 
 const Auth = observer(() => {

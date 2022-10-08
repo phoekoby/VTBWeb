@@ -7,7 +7,6 @@ import ru.vtb.phoekoby.client.domain.User;
 import ru.vtb.phoekoby.client.domain.enumiration.RequestStatus;
 
 import java.util.List;
-import java.util.Optional;
 
 @Repository
 public interface RequestRepository extends JpaRepository<Request, Long> {

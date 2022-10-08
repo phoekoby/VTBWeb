@@ -1,5 +1,4 @@
-import Api from "./Api"
-import {$host,$authHost} from "./index";
+import {$authHost, $host} from "./index";
 import jwtDecode from "jwt-decode";
 
 

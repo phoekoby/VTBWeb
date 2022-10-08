@@ -1,4 +1,4 @@
-package ru.vtb.clientrestmicroservice.entity.transaction;
+package ru.vtb.clientrestmicroservice.entity;
 
 public enum TransactionStatus {
     PROCESSING,

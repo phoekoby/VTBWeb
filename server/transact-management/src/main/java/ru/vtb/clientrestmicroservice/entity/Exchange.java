@@ -1,8 +1,10 @@
-package ru.vtb.clientrestmicroservice.entity.transaction;
+package ru.vtb.clientrestmicroservice.entity;
 
-import lombok.*;
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
 import org.hibernate.Hibernate;
-import ru.vtb.clientrestmicroservice.entity.BaseEntity;
 
 import javax.persistence.*;
 import java.util.Objects;
