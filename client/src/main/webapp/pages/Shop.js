@@ -10,19 +10,14 @@ import {Context} from "../../../index";
 const Shop = observer(() => {
     const {product} = useContext(Context)
 
-    useEffect(() => {
-        // fetchProducts().then(data => {
-        //     product.setProducts(data.rows)
-        //     product.setTotalCount(data.count)
-        // })
-    },[])
 
     useEffect(() => {
-        // fetchProducts(product.selectedType.id,product.page, 6).then(data => {
+        // fetchProducts(product.selectedType.id,product.page, 16).then(data => {
         //     product.setProducts(data.rows)
         //     product.setTotalCount(data.count)
         // })
     },[product.page,product.selectedType])
+
     return (
         <Container>
           <Row className={styles.listGroup}>

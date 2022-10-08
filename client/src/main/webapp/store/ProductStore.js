@@ -20,11 +20,17 @@ export default class ProductStore {
             {id:8,name:'какая то хрень 3',price: 5000},
             {id:9,name:'какая то хрень 4',price: 5000},
             {id:10,name:'какая то хрень 5',price: 7000},
+            {id:11,name:'какая то хрень 5',price: 7000},
+            {id:12,name:'какая то хрень 1',price: 2000},
+            {id:13,name:'какая то хрень 2',price: 1000},
+            {id:14,name:'какая то хрень 3',price: 5000},
+            {id:15,name:'какая то хрень 4',price: 5000},
+            {id:16,name:'какая то хрень 5',price: 7000},
         ]
         this._selectedType = {}
         this._page = 1
         this._totalCount = 0
-        this._limit = 6
+        this._limit = 16
         makeAutoObservable(this)
     }
 

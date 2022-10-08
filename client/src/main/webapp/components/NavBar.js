@@ -3,6 +3,7 @@ import {Context} from "../../../index";
 import {Navbar, Nav, Button, Container} from "react-bootstrap";
 import {NavLink} from "react-router-dom";
 import {
+    ACHIEVMENTS_ROUTE,
     COURSES_ROUTE,
     LOGIN_ROUTE,
     NOTIFICATIONS_ROUTE,
@@ -30,7 +31,7 @@ const NavBar = observer(() => {
                 <NavLink  to={SHOP_ROUTE} className={styles.logo}>ВТБХАК</NavLink>
                 <NavLink to={TRANSACTIONS_ROUTE} className={styles.button}>Транзакции</NavLink>
                 <NavLink to={COURSES_ROUTE} className={styles.button}>Курсы</NavLink>
-                <NavLink to={USERS_ROUTE} className={styles.button}>Другие люди</NavLink>
+                <NavLink to={USERS_ROUTE} className={styles.button}>Пользователи</NavLink>
                 <NavLink to={NOTIFICATIONS_ROUTE} className={styles.button}>Уведомления</NavLink>
                 {user.isAuth ?
                     <Nav style={{color: "white"}}>
