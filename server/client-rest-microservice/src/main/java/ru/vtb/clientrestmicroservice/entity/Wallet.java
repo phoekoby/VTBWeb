@@ -23,7 +23,7 @@ public class Wallet extends BaseEntity{
 
     @ManyToOne
     @JoinColumn(name = "user_account_id")
-    private UserAccount userId;
+    private UserAccount userAccount;
 
     @OneToMany(mappedBy = "fromWallet")
     private List<Transaction> outputTransactions;

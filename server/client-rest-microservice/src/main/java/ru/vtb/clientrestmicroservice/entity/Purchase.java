@@ -17,10 +17,10 @@ public class Purchase extends BaseEntity {
 
     @ManyToOne
     @JoinColumn(name = "prev_owner_user_account_id")
-    private UserAccount prevOwnerUserId;
+    private UserAccount prevOwnerUser;
     @ManyToOne
     @JoinColumn(name = "buyer_user_account_id")
-    private UserAccount buyerUserId;
+    private UserAccount buyerUser;
 
     @ManyToOne
     @JoinColumn(name = "product_id")

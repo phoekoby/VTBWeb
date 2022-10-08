@@ -17,7 +17,7 @@ public class UserSlide extends BaseEntity {
 
     @ManyToOne
     @JoinColumn(name = "user_account_id")
-    private UserAccount userId;
+    private UserAccount userAccount;
 
     @OneToOne
     @JoinColumn(name = "slide_id")

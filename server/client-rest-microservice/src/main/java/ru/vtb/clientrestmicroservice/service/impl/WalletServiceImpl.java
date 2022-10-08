@@ -15,6 +15,7 @@ import ru.vtb.clientrestmicroservice.dto.output.OutputWalletDto;
 import ru.vtb.clientrestmicroservice.dto.output.OutputWalletHistory;
 import ru.vtb.clientrestmicroservice.entity.Wallet;
 import ru.vtb.clientrestmicroservice.repository.WalletRepository;
+import ru.vtb.clientrestmicroservice.service.UserAccountService;
 import ru.vtb.clientrestmicroservice.service.WalletService;
 
 import java.util.List;
@@ -29,6 +30,7 @@ public class WalletServiceImpl implements WalletService {
     @Value("${base.url}")
     private String baseUrl;
     private final WalletRepository walletRepository;
+    private final UserAccountService userAccountService;
 
     @Override
     public List<OutputWalletDto> getWallets(UserDto userDto) {
@@ -45,7 +47,7 @@ public class WalletServiceImpl implements WalletService {
             if(apiWalletDto != null) {
                 wallet.setPrivateKey(apiWalletDto.getPrivateKey());
                 wallet.setPublicKey(apiWalletDto.getPublicKey());
-                wallet.setUserId(userDto.getId());
+                wallet.setUserAccount(userAccountService.getUserAccount(userDto.getId()));
                 return walletRepository.save(wallet).getId();
             }else{
                 throw new HttpClientErrorException(HttpStatus.BAD_REQUEST, "Wallet can't be created");

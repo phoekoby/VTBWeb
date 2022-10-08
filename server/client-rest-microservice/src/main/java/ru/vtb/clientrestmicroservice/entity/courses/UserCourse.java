@@ -19,7 +19,7 @@ public class UserCourse extends BaseEntity {
 
     @ManyToOne
     @JoinColumn(name = "user_account_id")
-    private UserAccount userId;
+    private UserAccount userAccount;
 
     @OneToOne
     @JoinColumn(name = "course_id")
