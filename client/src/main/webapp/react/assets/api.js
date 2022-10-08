@@ -1,5 +1,5 @@
 
-const api_url = 'localhost:8080/api/v1'
+const api_url = 'http://localhost:8080/api/v1'
 class Api {
 
     constructor () {
