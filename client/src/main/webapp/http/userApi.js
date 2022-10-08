@@ -5,7 +5,7 @@ import {useContext} from "react";
 import {Context} from "../../../index";
 
 
-const api = new Api()
+//const api = new Api()
 
 // export const checkToken = async (login, password) => {
 //     return api.request('/authorize', {login, password}, 'POST')

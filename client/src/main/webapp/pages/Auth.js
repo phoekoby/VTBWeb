@@ -26,12 +26,12 @@ const Auth = observer(() => {
         try {
             let data
             if(isLogin){
-                data = await login(email,password)
+                //data = await login(email,password)
             }else{
                 // data = await registration(email,password)
                 // console.log(response)
             }
-            user.setUser(data)
+            //user.setUser(data)
             user.setIsAuth(true)
             navigate(SHOP_ROUTE)
         }catch (e) {
@@ -53,6 +53,7 @@ const Auth = observer(() => {
                         placeholder="Введите ваш email..."
                         value={email}
                         onChange={e => setEmail(e.target.value)}
+                        required={true}
                     />
                     <Form.Control
                         className={styles.placeholder}
@@ -60,6 +61,7 @@ const Auth = observer(() => {
                         value={password}
                         onChange={e => setPassword(e.target.value)}
                         type="password"
+                        required={true}
                     />
                     <div className={styles.formRow}>
                         {isLogin ?
