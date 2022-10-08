@@ -6,8 +6,8 @@ import org.springframework.stereotype.Component;
 @Getter
 @Component
 public class RoleConstants {
-    private final String USER = "user";
-    private final String ADMIN = "admin";
-    private final String SUPERVISOR = "supervisor";
-    private final String REDACTOR = "redactor";
+    private final String USER = "USER";
+    private final String ADMIN = "ADMINISTRATOR";
+    private final String SUPERVISOR = "SUPERVISOR";
+    private final String REDACTOR = "EDITOR";
 }

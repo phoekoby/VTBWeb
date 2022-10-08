@@ -12,7 +12,7 @@ import ru.vtb.clientrestmicroservice.service.TransactionService;
 public class TransactionConsumer {
     private final TransactionService transactionService;
 
-    @RabbitListener
+//    @RabbitListener
     public void onMessage(TransactionMessageEventDto transactionMessageEventDto){
         String status = transactionService.getStatus(transactionMessageEventDto.getHash());
         switch (status){

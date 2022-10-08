@@ -8,17 +8,19 @@ import lombok.ToString;
 import javax.persistence.*;
 
 @Entity
+@Table(name = "purchase", schema = "transaction_management")
 @Getter
 @Setter
 @ToString
 @RequiredArgsConstructor
 public class Purchase extends BaseEntity {
 
-    @Column(name = "prev_owner_user_id")
-    private Long prevOwnerUserId;
-
-    @Column(name = "buyer_user_id")
-    private Long buyerUserId;
+    @ManyToOne
+    @JoinColumn(name = "prev_owner_user_account_id")
+    private UserAccount prevOwnerUserId;
+    @ManyToOne
+    @JoinColumn(name = "buyer_user_account_id")
+    private UserAccount buyerUserId;
 
     @ManyToOne
     @JoinColumn(name = "product_id")

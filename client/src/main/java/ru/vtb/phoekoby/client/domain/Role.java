@@ -21,6 +21,7 @@ public class Role extends BaseEntity {
     @ManyToMany
     @JoinTable(
             name = "roles_privileges",
+            schema = "user_management",
             joinColumns = @JoinColumn(
                     name = "role_id", referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn(

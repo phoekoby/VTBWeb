@@ -27,8 +27,6 @@ public class UserController {
 
     private final UserService userService;
 
-    private final AuthorityConstants authorityConstants;
-
     @PostMapping("/v1/create-account")
     public ResponseEntity<ResponseUserDTO> createUser(
             @RequestBody @NotNull @Valid CreateUserDTO createUserDTO
@@ -62,7 +60,7 @@ public class UserController {
         return ResponseEntity.ok(responseUserDTO);
     }
 
-    @PreAuthorize("hasAuthority(#authorityConstants.MANAGEMENT)")
+    @PreAuthorize("hasAuthority(#authorityConstants.STORE_MANAGEMENT)")
     @PutMapping("/v1/change-role/{userId}")
     public ResponseEntity<ResponseUserDTO> changeUserRole(
             @PathVariable Long userId,

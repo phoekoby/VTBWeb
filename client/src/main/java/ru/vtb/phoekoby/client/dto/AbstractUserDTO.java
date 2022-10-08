@@ -6,7 +6,6 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 
 @Data
-@Builder
 @AllArgsConstructor
 @NoArgsConstructor
 public abstract class AbstractUserDTO {
