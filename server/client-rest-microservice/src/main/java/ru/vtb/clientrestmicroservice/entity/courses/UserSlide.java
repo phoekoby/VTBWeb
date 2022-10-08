@@ -21,6 +21,7 @@ public class UserSlide extends BaseEntity {
     private Slide slide;
 
     @Column(name = "slide_user_status")
+    @Enumerated(EnumType.STRING)
     private SlideStatus slideStatus;
 
     @ManyToOne

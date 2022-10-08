@@ -23,12 +23,10 @@ public class ResponseUserMapper implements EntityMapper<User, ResponseUserDTO> {
 
     @Override
     public ResponseUserDTO toDto(User user) {
-        ResponseUserDTO responseUserDTO = (ResponseUserDTO) AbstractUserDTO
-                .builder()
-                .email(user.getEmail())
-                .lastName(user.getLastName())
-                .firstName(user.getFirstName())
-                .build();
+        ResponseUserDTO responseUserDTO = new ResponseUserDTO();
+        responseUserDTO.setEmail(user.getEmail());
+        responseUserDTO.setLastName(user.getLastName());
+        responseUserDTO.setFirstName(user.getFirstName());
         responseUserDTO.setId(user.getId());
         return responseUserDTO;
     }

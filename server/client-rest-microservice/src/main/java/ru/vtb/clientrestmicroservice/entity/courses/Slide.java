@@ -31,14 +31,6 @@ public class Slide extends BaseEntity {
     @JoinColumn(name = "course_id")
     private Course course;
 
-    @Column(name = "order")
+    @Column(name = "ord")
     private Integer order;
-
-    @Column(name = "slide_type")
-    @Enumerated(EnumType.STRING)
-    private SlideType slideType;
-
-    //нужно ли?
-    @Column(name = "slide_prize")
-    private Double slidePrize;
 }

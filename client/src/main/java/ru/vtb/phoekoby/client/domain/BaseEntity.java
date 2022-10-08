@@ -1,18 +1,30 @@
 package ru.vtb.phoekoby.client.domain;
 
 
+import lombok.*;
+import org.hibernate.Hibernate;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
-import lombok.Data;
-
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.MappedSuperclass;
+import javax.persistence.*;
+import java.util.Date;
+import java.util.Objects;
 
 @MappedSuperclass
-@Data
+@Getter
+@Setter
+@ToString
+@RequiredArgsConstructor
 public abstract class BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    protected Long id;
+
+    @Column(name = "create_date")
+    @CreationTimestamp
+    protected Date createDate;
+
+    @Column(name = "update_date")
+    @UpdateTimestamp
+    protected Date updateDate;
 }

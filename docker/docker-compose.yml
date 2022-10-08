@@ -10,7 +10,8 @@ services:
     ports:
       - "5432:5432"
     volumes:
-      - ./db/init.sql:/docker-entry-point-initdb.d/init.sql
+      - ./db:/docker-entrypoint-initdb.d
+#      - ./db/init.sh.sql:/docker-entry-point-initdb.d/init.sh.sql
   adminer-postgresql-vtb-web-db:
     container_name: adminer-postgresql-vtb-web-db
     image: dpage/pgadmin4

@@ -9,7 +9,7 @@ import java.util.List;
 @Data
 //@Builder
 @AllArgsConstructor
-//@NoArgsConstructor
+@NoArgsConstructor
 @EqualsAndHashCode(callSuper = true)
 public class ResponseUserDTO extends AbstractUserDTO implements Serializable {
     private Long id;

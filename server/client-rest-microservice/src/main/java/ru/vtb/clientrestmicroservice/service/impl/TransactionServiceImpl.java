@@ -8,7 +8,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 import ru.vtb.clientrestmicroservice.dto.Currency;
-import ru.vtb.clientrestmicroservice.dto.UserDto;
 import ru.vtb.clientrestmicroservice.dto.input.ExchangeDto;
 import ru.vtb.clientrestmicroservice.dto.input.TransferDto;
 import ru.vtb.clientrestmicroservice.dto.message.TransactionMessageEventDto;
