@@ -23,6 +23,7 @@ public class UserCourse extends BaseEntity {
     private Course course;
 
     @Column(name = "course_user_status")
+    @Enumerated(EnumType.STRING)
     private CourseStatus taskStatus;
 
     @Column
