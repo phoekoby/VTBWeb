@@ -4,13 +4,9 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import ru.vtb.phoekoby.client.domain.User;
 import ru.vtb.phoekoby.client.domain.enumiration.RequestStatus;
 import ru.vtb.phoekoby.client.domain.enumiration.RequestType;
 
-import javax.persistence.Column;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import java.io.Serializable;
 
 @Data

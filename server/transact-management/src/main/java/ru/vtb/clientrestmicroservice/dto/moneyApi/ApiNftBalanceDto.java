@@ -11,6 +11,6 @@ import java.util.List;
 @AllArgsConstructor
 @Builder
 public class ApiNftBalanceDto {
-    private String url;
+    private String URI;
     private List<Integer> tokens;
 }

@@ -1,9 +1,8 @@
 import React, {useContext} from 'react';
 import {Context} from "../../../index";
-import {Navbar, Nav, Button, Container} from "react-bootstrap";
-import {NavLink} from "react-router-dom";
+import {Button, Container, Nav, Navbar} from "react-bootstrap";
+import {NavLink, useNavigate} from "react-router-dom";
 import {
-    ACHIEVMENTS_ROUTE,
     COURSES_ROUTE,
     LOGIN_ROUTE,
     NOTIFICATIONS_ROUTE,
@@ -13,8 +12,6 @@ import {
 } from "../utils/consts";
 import {observer} from "mobx-react-lite";
 import styles from "../styles/Navbar.module.css";
-import {useNavigate} from "react-router-dom"
-
 
 
 const NavBar = observer(() => {

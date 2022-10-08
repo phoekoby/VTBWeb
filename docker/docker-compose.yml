@@ -1,88 +1,108 @@
 version: '3.8'
 services:
+
   postgresql-vtb-web-db:
     container_name: postgresql-vtb-web-db
     image: phoekoby/postgres-vtb-db:1.0-SNAPSHOT
-    network_mode: host
     environment:
-      - DATABASE_HOST=127.0.0.1
       - POSTGRES_USER=admin
       - POSTGRES_PASSWORD=qwerty
       - POSTGRES_DB=vtb
-#    ports:
-#      - "127.0.0.1:5432:5432"
-#    volumes:
-#      - ./db/init.sql:/docker-entrypoint-initdb.d/init.sql
-#  adminer-postgresql-vtb-web-db:
-#    container_name: adminer-postgresql-vtb-web-db
-#    network_mode: host
-#    image: dpage/pgadmin4
-#    restart: on-failure
-#    environment:
-#      PGADMIN_DEFAULT_EMAIL: admin@admin.ru
-#      PGADMIN_DEFAULT_PASSWORD: admin
-#    ports:
-#      - "127.0.0.1:5050:80"
-#  rabbit-mq-vtb-web:
-#    container_name: rabbit-mq-vtb-web
-#    image: bitnami/rabbitmq:3-management
-#    ports:
-#      - '15672:15672'
-#    volumes:
-#      - 'rabbitmqstats_data:/bitnami'
+    ports:
+      - "5432:5432"
+    networks:
+      - internal
 
 
-#  vtb-server-rpc:
-#    image: vtb-rpc/server-rpc-microservice:0.0.1-SNAPSHOT
-#    ports:
-#      - "8080:8080"
-#    environment:
-#      - SPRING_PROFILES_ACTIVE="default"
-#      - SPRING_CLOUD_CONFIG_URI=http://configserver:8765
-#    networks:
-#      server:
-#        aliases:
-#          - 'rpc-server'
+
   vtb-transact-management:
     image: phoekoby/transact-management:0.0.1-SNAPSHOT
-    network_mode: host
     restart: on-failure
-#    ports:
-#      - "127.0.0.1:8081:8081"
-#    environment:
-#      - SPRING_PROFILES_ACTIVE="default"
-#      - SPRING_CLOUD_CONFIG_URI=http://configserver:8765
+    networks:
+      - internal
+    ports:
+      - "8081:8081"
+    environment:
+      SPRING_PROFILES_ACTIVE: "prod"
+      SPRING_CLOUD_CONFIG_URI: http://vtb-configuration-server:8765
     depends_on:
       - vtb-configuration-server
       - vtb-eureka-server
       - postgresql-vtb-web-db
-#    networks:
-#      server:
-#        aliases:
-#          - 'rpc-server'
-  vtb-configuration-server:
-    image: phoekoby/configuration:0.0.2-SNAPSHOT
-    network_mode: host
-#    ports:
-#      - "127.0.0.1:8765:8765"
-  vtb-eureka-server:
-    image: phoekoby/eureka-server:0.0.1-SNAPSHOT
-    network_mode: host
+
+
+
+  vtb-marketplace-management:
+    image: phoekoby/marketplace-management:0.0.1-SNAPSHOT
+    restart: on-failure
+    networks:
+      - internal
+    ports:
+      - "8082:8082"
+    environment:
+      SPRING_PROFILES_ACTIVE: "prod"
+      SPRING_CLOUD_CONFIG_URI: http://vtb-configuration-server:8765
     depends_on:
       - vtb-configuration-server
-#    ports:
-#      - "127.0.0.1:8070:8070"
+      - vtb-eureka-server
+      - postgresql-vtb-web-db
+
+
+
+  vtb-gamification-management:
+    image: phoekoby/gamification-management:0.0.1-SNAPSHOT
+    restart: on-failure
+    networks:
+      - internal
+    ports:
+      - "8083:8083"
+    environment:
+      SPRING_PROFILES_ACTIVE: "prod"
+      SPRING_CLOUD_CONFIG_URI: http://vtb-configuration-server:8765
+    depends_on:
+      - vtb-configuration-server
+      - vtb-eureka-server
+      - postgresql-vtb-web-db
+
+
+
+  vtb-configuration-server:
+    image: phoekoby/configuration:0.0.2-SNAPSHOT
+    networks:
+      - internal
+    ports:
+      - "8765:8765"
+
+
+  vtb-eureka-server:
+    image: phoekoby/eureka-server:0.0.1-SNAPSHOT
+    environment:
+      SPRING_PROFILES_ACTIVE: "prod"
+      SPRING_CLOUD_CONFIG_URI: http://vtb-configuration-server:8765
+    networks:
+      - internal
+    depends_on:
+      - vtb-configuration-server
+    ports:
+      - "8070:8070"
+
+
 
   vtb-gateway:
     image: phoekoby/client:1.0-SNAPSHOT
-    network_mode: host
+    environment:
+      SPRING_PROFILES_ACTIVE: "prod"
+      SPRING_CLOUD_CONFIG_URI: http://vtb-configuration-server:8765
+    networks:
+      - internal
     restart: on-failure
-#    ports:
-#      - "127.0.0.1:8080:8080"
+    ports:
+      - "8080:8080"
     depends_on:
       - vtb-eureka-server
       - vtb-configuration-server
       - postgresql-vtb-web-db
-#networks:
-#  server:
-#    driver: bridge
+
+
+networks:
+  internal:

@@ -1,6 +1,9 @@
 package ru.vtb.phoekoby.client.dto.response;
 
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
 import ru.vtb.phoekoby.client.dto.AbstractUserDTO;
 
 import java.io.Serializable;

@@ -15,7 +15,6 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class UserAccountServiceImpl implements UserAccountService {
     private final UserAccountRepository userAccountRepository;
-    private static final Double dailyMultiplier = 1.104;
     @Override
     public UserAccount getUserAccount(Long userId) {
         Optional<UserAccount> byUserId = userAccountRepository.findByUserId(userId);
@@ -23,8 +22,6 @@ public class UserAccountServiceImpl implements UserAccountService {
         if(byUserId.isEmpty()){
             userAccount = new UserAccount();
             userAccount.setUserId(userId);
-            userAccount.setLastActivityDate(new Date());
-            userAccount.setDailyMultiply(dailyMultiplier);
             userAccount = userAccountRepository.save(userAccount);
         }else{
             userAccount = byUserId.get();

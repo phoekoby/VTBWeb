@@ -1,5 +1,4 @@
-import Api from "./Api"
-import {$host,$authHost} from "./index";
+import {$authHost, $host} from "./index";
 import jwtDecode from "jwt-decode";
 import {useContext} from "react";
 import {Context} from "../../../index";
@@ -39,7 +38,9 @@ import {Context} from "../../../index";
 
 export const login = async (email,password) => {
     console.log('login')
+
     const {data} = await $host.post('/authorize',{login: email,password})
+
     localStorage.setItem('token',data.token)
     return jwtDecode(data.token)
 }

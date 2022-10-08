@@ -1,9 +1,8 @@
 import React, {useState} from 'react';
-import {Card, Col, Image} from "react-bootstrap";
+import {Col, Image} from "react-bootstrap";
 import styles from "../styles/TransactionItem.module.css";
 import wallet from "../assets/wallet.png"
 import {useNavigate} from 'react-router-dom'
-import {TRANSACTIONS_ROUTE} from "../utils/consts";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 

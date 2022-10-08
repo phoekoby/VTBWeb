@@ -11,5 +11,5 @@ import java.util.List;
 @Builder
 public class OutNftDto {
     private String url;
-    private List<Long> tokens;
+    private List<Integer> tokens;
 }

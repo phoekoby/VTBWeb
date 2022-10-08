@@ -8,7 +8,6 @@ import {Spinner} from "react-bootstrap";
 import {checkToken} from "./http/userApi";
 
 
-
 // const api_url = 'localhost:8080/api/v1'
 // class Api {
 //

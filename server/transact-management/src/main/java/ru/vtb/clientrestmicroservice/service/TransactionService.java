@@ -1,7 +1,6 @@
 package ru.vtb.clientrestmicroservice.service;
 
 import org.springframework.data.domain.Pageable;
-import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 import ru.vtb.clientrestmicroservice.dto.input.ExchangeDto;
 import ru.vtb.clientrestmicroservice.dto.input.PurchaseDto;
@@ -17,7 +16,7 @@ import java.util.List;
 
 @Service
 public interface TransactionService {
-    OutTransferDto doTransfer(TransferDto transferDto);
+    OutTransactionDto doTransfer(TransferDto transferDto);
     OutTransactionDto doExchange(ExchangeDto exchangeDto);
     OutTransactionDto doPurchase(PurchaseDto purchaseDto);
     String getStatus(String hash);

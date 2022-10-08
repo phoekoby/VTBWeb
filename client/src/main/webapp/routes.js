@@ -6,7 +6,8 @@ import {
     PROFILE_ROUTE,
     REGISTRATION_ROUTE,
     SHOP_ROUTE,
-    TRANSACTIONS_ROUTE, USERS_ROUTE
+    TRANSACTIONS_ROUTE,
+    USERS_ROUTE
 } from "./utils/consts";
 import Profile from "./pages/Profile";
 import Shop from "./pages/Shop";

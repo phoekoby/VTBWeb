@@ -1,8 +1,9 @@
 package ru.vtb.phoekoby.client.dto.create;
 
-import lombok.*;
-import ru.vtb.phoekoby.client.domain.User;
-import ru.vtb.phoekoby.client.domain.enumiration.RequestStatus;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import ru.vtb.phoekoby.client.domain.enumiration.RequestType;
 
 import java.io.Serializable;

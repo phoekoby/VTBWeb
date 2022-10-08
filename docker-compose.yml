@@ -1,0 +1,108 @@
+version: '3.8'
+services:
+
+  postgresql-vtb-web-db:
+    container_name: postgresql-vtb-web-db
+    image: phoekoby/postgres-vtb-db:1.0-SNAPSHOT
+    environment:
+      - POSTGRES_USER=admin
+      - POSTGRES_PASSWORD=qwerty
+      - POSTGRES_DB=vtb
+    ports:
+      - "5432:5432"
+    networks:
+      - internal
+
+
+
+  vtb-transact-management:
+    image: phoekoby/transact-management:0.0.1-SNAPSHOT
+    restart: on-failure
+    networks:
+      - internal
+    ports:
+      - "8081:8081"
+    environment:
+      SPRING_PROFILES_ACTIVE: "prod"
+      SPRING_CLOUD_CONFIG_URI: http://vtb-configuration-server:8765
+    depends_on:
+      - vtb-configuration-server
+      - vtb-eureka-server
+      - postgresql-vtb-web-db
+
+
+
+  vtb-marketplace-management:
+    image: phoekoby/marketplace-management:0.0.1-SNAPSHOT
+    restart: on-failure
+    networks:
+      - internal
+    ports:
+      - "8082:8082"
+    environment:
+      SPRING_PROFILES_ACTIVE: "prod"
+      SPRING_CLOUD_CONFIG_URI: http://vtb-configuration-server:8765
+    depends_on:
+      - vtb-configuration-server
+      - vtb-eureka-server
+      - postgresql-vtb-web-db
+
+
+
+  vtb-gamification-management:
+    image: phoekoby/gamification-management:0.0.1-SNAPSHOT
+    restart: on-failure
+    networks:
+      - internal
+    ports:
+      - "8083:8083"
+    environment:
+      SPRING_PROFILES_ACTIVE: "prod"
+      SPRING_CLOUD_CONFIG_URI: http://vtb-configuration-server:8765
+    depends_on:
+      - vtb-configuration-server
+      - vtb-eureka-server
+      - postgresql-vtb-web-db
+
+
+
+  vtb-configuration-server:
+    image: phoekoby/configuration:0.0.2-SNAPSHOT
+    networks:
+      - internal
+    ports:
+      - "8765:8765"
+
+
+  vtb-eureka-server:
+    image: phoekoby/eureka-server:0.0.1-SNAPSHOT
+    environment:
+      SPRING_PROFILES_ACTIVE: "prod"
+      SPRING_CLOUD_CONFIG_URI: http://vtb-configuration-server:8765
+    networks:
+      - internal
+    depends_on:
+      - vtb-configuration-server
+    ports:
+      - "8761:8761"
+
+
+
+  vtb-gateway:
+    image: phoekoby/client:1.0-SNAPSHOT
+    environment:
+      SPRING_PROFILES_ACTIVE: "prod"
+      SPRING_CLOUD_CONFIG_URI: http://vtb-configuration-server:8765
+    networks:
+      - internal
+    restart: on-failure
+    ports:
+      - "8080:8080"
+    depends_on:
+      - vtb-eureka-server
+      - vtb-configuration-server
+      - postgresql-vtb-web-db
+
+
+networks:
+  internal:

@@ -18,7 +18,6 @@ import ru.vtb.phoekoby.client.mapper.CreateRequestMapper;
 import ru.vtb.phoekoby.client.mapper.ResponseRequestMapper;
 import ru.vtb.phoekoby.client.repo.RequestRepository;
 import ru.vtb.phoekoby.client.repo.RoleRepository;
-import ru.vtb.phoekoby.client.repo.UserRepository;
 import ru.vtb.phoekoby.client.service.RequestService;
 import ru.vtb.phoekoby.client.service.UserService;
 

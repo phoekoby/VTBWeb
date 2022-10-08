@@ -1,7 +1,6 @@
-import React, {useContext, useState} from 'react';
-import {Button, Modal,Form} from "react-bootstrap";
+import React, {useState} from 'react';
+import {Button, Form, Modal} from "react-bootstrap";
 import styles from "../styles/Users.module.css";
-import {Context} from "../../../index";
 import axios from "axios";
 import {api_url} from "../http";
 
