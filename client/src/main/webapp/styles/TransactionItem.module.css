@@ -1,0 +1,13 @@
+.transactionItem {
+    padding: 8px 20px;
+    background-color: #3d90e3;
+    border-radius: 8px;
+    margin-bottom: 10px;
+    color: #fff;
+    cursor: pointer;
+    transition: .15s;
+}
+.transactionItem:hover {
+    background-color: #4ea3f8;
+}
+
