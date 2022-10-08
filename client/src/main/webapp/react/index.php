@@ -25,7 +25,7 @@ require_once 'functions.php';
 <?php load('pages/App') ?>
 
 
-<script type="text/javascript" src="/assets/index.js"></script>
+<script type="text/javascript" src="/assets/Api.js"></script>
 <script type="text/javascript" src="/assets/Component.js"></script>
 <script type="text/javascript" src="/assets/api.js"></script>
 <script type="text/javascript" src="/assets/Auth.js"></script>
