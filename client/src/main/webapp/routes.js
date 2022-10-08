@@ -1,10 +1,19 @@
 import Admin from "./pages/Admin";
-import {ADMIN_ROUTE, LOGIN_ROUTE, PRODUCT_ROUTE, PROFILE_ROUTE, REGISTRATION_ROUTE, SHOP_ROUTE} from "./utils/consts";
+import {
+    ADMIN_ROUTE,
+    LOGIN_ROUTE,
+    PRODUCT_ROUTE,
+    PROFILE_ROUTE,
+    REGISTRATION_ROUTE,
+    SHOP_ROUTE,
+    TRANSACTIONS_ROUTE
+} from "./utils/consts";
 import Profile from "./pages/Profile";
 import Shop from "./pages/Shop";
 import Auth from "./pages/Auth";
 import Product from "./pages/Product";
 import React from "react";
+import Transactions from "./pages/Transactions";
 
 export const authRoutes = [
     {
@@ -33,5 +42,9 @@ export const publicRoutes = [
     {
         path:PRODUCT_ROUTE + '/:id',
         Component: <Product/>
+    },
+    {
+        path:TRANSACTIONS_ROUTE,
+        Component: <Transactions/>
     },
 ]
