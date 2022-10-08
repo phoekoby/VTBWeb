@@ -20,13 +20,9 @@ public class Course extends BaseEntity {
     @OneToMany(mappedBy = "course")
     private List<Slide> slides;
 
-    @Column(name = "order")
+    @Column(name = "ord")
     private Integer order;
 
     @Column(name = "course_prize")
     private Double coursePrize;
-
-    //maybe?
-    @Column(name = "course_prise")
-    private Double coursePrise;
 }

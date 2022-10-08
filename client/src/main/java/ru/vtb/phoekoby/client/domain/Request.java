@@ -13,10 +13,10 @@ import javax.persistence.*;
 @Setter
 public class Request extends BaseEntity {
     @ManyToOne
-    @JoinColumn(name = "user_from")
+    @JoinColumn(name = "user_from_id")
     private User from;
     @ManyToOne
-    @JoinColumn(name = "user_to")
+    @JoinColumn(name = "user_to_id")
     private User to;
 
     @Column(name = "request_type")

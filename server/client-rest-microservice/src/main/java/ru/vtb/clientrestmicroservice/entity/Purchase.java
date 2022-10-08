@@ -25,7 +25,7 @@ public class Purchase extends BaseEntity {
     private Product product;
 
     @Column(name = "cost")
-    private Integer cost;
+    private Double cost;
 
     @OneToOne
     @JoinColumn(name = "transaction_id")
