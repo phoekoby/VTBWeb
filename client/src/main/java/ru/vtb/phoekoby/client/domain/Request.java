@@ -8,9 +8,10 @@ import ru.vtb.phoekoby.client.domain.enumiration.RequestType;
 import javax.persistence.*;
 
 @Entity
+@Table(name = "request", schema = "user_management")
 @Getter
 @Setter
-public class Request extends BaseEntity{
+public class Request extends BaseEntity {
     @ManyToOne
     @JoinColumn(name = "user_from")
     private User from;
@@ -20,6 +21,10 @@ public class Request extends BaseEntity{
 
     @Column(name = "request_type")
     private RequestType requestType;
+
+    @ManyToOne
+    @JoinColumn(name = "requesting_role")
+    private Role requestingRole;
 
     @Column(name = "request_status")
     private RequestStatus requestStatus;

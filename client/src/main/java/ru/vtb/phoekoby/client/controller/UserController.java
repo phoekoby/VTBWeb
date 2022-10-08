@@ -53,7 +53,7 @@ public class UserController {
     }
 
     @PostMapping("/v1/authenticate")
-    public ResponseEntity<ResponseUserDTO> authorize(
+    public ResponseEntity<ResponseUserDTO> authenticate(
             @RequestBody @NotBlank String token
     ) {
         log.debug("Request for authentication with Token: {}", token);
@@ -80,6 +80,12 @@ public class UserController {
         log.debug("REST request for getting all public users");
         List<ResponseUserDTO> result = userService.getAllPublicUsers(pageable);
         return ResponseEntity.ok(result);
+    }
+
+    @GetMapping("/v1/my-account")
+    public ResponseEntity<ResponseUserDTO> getUser(){
+        log.debug("REST request for getting user account");
+        return ResponseEntity.ok(userService.getCurrentUser());
     }
 
     @GetMapping("/v1/public-user/{id}")

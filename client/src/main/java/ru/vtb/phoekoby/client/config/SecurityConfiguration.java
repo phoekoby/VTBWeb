@@ -15,6 +15,8 @@ import ru.vtb.phoekoby.client.security.JwtAuthenticationFilter;
 public class SecurityConfiguration {
     private final JwtAuthenticationFilter jwtAuthenticationFilter;
 
+    private final AuthorityConstants authorityConstants;
+
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
@@ -23,6 +25,8 @@ public class SecurityConfiguration {
                 .antMatchers("/api/v1/create-account").permitAll()
                 .antMatchers("/api/v1/authorize").permitAll()
                 .antMatchers("/api/v1/authenticate").permitAll()
+                .antMatchers("/api/v1/requests/**").authenticated()
+//                .antMatchers("/api/v1/requests/create").authenticated()
                 .antMatchers("/api/v1/**").authenticated()
                 .anyRequest().authenticated()
                 .and()

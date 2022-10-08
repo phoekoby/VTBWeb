@@ -8,6 +8,7 @@ import java.util.Collection;
 import java.util.List;
 
 @Entity
+@Table(name = "users", schema = "user_management")
 @Getter
 @Setter
 @Builder

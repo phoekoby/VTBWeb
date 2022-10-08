@@ -1,27 +1,30 @@
 package ru.vtb.phoekoby.client.domain;
 
 
-
-import lombok.Data;
+import lombok.*;
+import org.hibernate.Hibernate;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
-import org.springframework.data.annotation.CreatedDate;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.Objects;
 
 @MappedSuperclass
-@Data
+@Getter
+@Setter
+@ToString
+@RequiredArgsConstructor
 public abstract class BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    protected Long id;
 
     @Column(name = "create_date")
     @CreationTimestamp
-    private Date createDate;
+    protected Date createDate;
 
     @Column(name = "update_date")
     @UpdateTimestamp
-    private Date updateDate;
+    protected Date updateDate;
 }
