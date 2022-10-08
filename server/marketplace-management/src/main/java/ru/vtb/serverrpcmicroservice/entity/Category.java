@@ -16,7 +16,7 @@ import java.util.Collection;
 public class Category extends BaseEntity implements Serializable {
 
     @Column(name = "name")
-    public String name;
+    private String name;
 
     @ManyToMany
     @JoinTable(
@@ -26,5 +26,5 @@ public class Category extends BaseEntity implements Serializable {
                     name = "category_id", referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn(
                     name = "product_id", referencedColumnName = "id"))
-    public Collection<Product> products;
+    private Collection<Product> products;
 }
