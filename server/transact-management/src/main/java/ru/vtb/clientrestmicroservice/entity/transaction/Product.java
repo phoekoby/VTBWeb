@@ -1,9 +1,11 @@
-package ru.vtb.clientrestmicroservice.entity;
+package ru.vtb.clientrestmicroservice.entity.transaction;
 
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
+import ru.vtb.clientrestmicroservice.entity.BaseEntity;
+import ru.vtb.clientrestmicroservice.entity.courses.Picture;
 
 import javax.persistence.*;
 import java.util.List;
@@ -13,7 +15,7 @@ import java.util.List;
 @Getter
 @Setter
 @RequiredArgsConstructor
-public class Product extends BaseEntity{
+public class Product extends BaseEntity {
 
     @Column(name = "owner_user_id")
     private Long ownerUserId;
