@@ -20,8 +20,8 @@
     </properties>
 
     <modules>
-        <module>client-rest-microservice</module>
-        <module>server-rpc-microservice</module>
+        <module>transact-management</module>
+        <module>marketplace-management</module>
     </modules>
 
     <dependencies>
