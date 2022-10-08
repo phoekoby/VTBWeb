@@ -23,7 +23,7 @@ public class Request extends BaseEntity {
     private RequestType requestType;
 
     @ManyToOne
-    @JoinColumn(name = "requesting_role")
+    @JoinColumn(name = "requesting_role_id")
     private Role requestingRole;
 
     @Column(name = "request_status")
