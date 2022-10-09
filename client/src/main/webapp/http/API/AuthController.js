@@ -16,14 +16,15 @@ class AuthController extends Controller {
                 console.error(err)
                 alert('Ошибка')
             })
-            .then(data => {
-                if(!data || data.jwt === undefined){
+            .then(jwt => {
+                if(!jwt || !jwt.length){
                     alert('Ошибка при авторизации')
+                    return jwt
                 }
-                localStorage.setItem('token', data.jwt)
-                API.jwt = data.jwt
+                localStorage.setItem('token', jwt)
+                API.jwt = jwt
                 console.log(API)
-                return data
+                return jwt
             })
     }
 
