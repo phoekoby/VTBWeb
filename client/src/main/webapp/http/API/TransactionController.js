@@ -1,5 +1,6 @@
+import Controller from "./Controller";
 
-class TransactionController extends Controller {
+export default class TransactionController extends Controller {
 
     constructor(api) {
         super(api)

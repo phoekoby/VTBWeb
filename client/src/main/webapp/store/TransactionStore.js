@@ -1,4 +1,6 @@
 import {makeAutoObservable} from "mobx";
+import {API} from "../http/Api";
+import WalletController from "../http/API/WalletController";
 
 export default class TransactionStore {
 
@@ -9,16 +11,36 @@ export default class TransactionStore {
             {id:3,name:'какие то штуки 3'},
             {id:4,name:'какие то штуки 4'},
         ]
-        this._transactions = [
-            {transactionId: 1, hash: 'saldkfjfdagkjfdssdlfjsdfljasdfl', fromId: 1, toId: 2, direction: 'Incoming', amount: 123.45, currency: 'NFT', transactionType: 'TRANSFER'},
-            {transactionId: 2, hash: 'saldkfjfdagkjfdssdlfjsdfljasdfl', fromId: 1, toId: 2, direction: 'Outgoing', amount: 123.45, currency: 'RUBLE', transactionType: 'PURCHASE'},
-            {transactionId: 3, hash: 'saldkfjfdagkjfdssdlfjsdfljasdfl', fromId: 1, toId: 2, direction: 'Incoming', amount: 123.45, currency: 'MATIC', transactionType: 'EXCHANGE'},
-            {transactionId: 4, hash: 'saldkfjfdagkjfdssdlfjsdfljasdfl', fromId: 1, toId: 2, direction: 'Outgoing', amount: 123.45, currency: 'NFT', transactionType: 'TRANSFER'},
-            {transactionId: 5, hash: 'saldkfjfdagkjfdssdlfjsdfljasdfl', fromId: 1, toId: 2, direction: 'Incoming', amount: 123.45, currency: 'RUBLE', transactionType: 'PURCHASE'},
-            {transactionId: 6, hash: 'saldkfjfdagkjfdssdlfjsdfljasdfl', fromId: 1, toId: 2, direction: 'Outgoing', amount: 123.45, currency: 'MATIC', transactionType: 'EXCHANGE'},
-        ]
+        this._transactions = []
         this._selectedType = {}
+        this._page = 0
+        this._hasMore = false
+        this.walletId = false
+
+        this.walletController = new WalletController(API)
+        this.walletController.getWallets().then(res => {
+            this.walletId = res ? res[0] : false
+            this.loadMore()
+        })
+
         makeAutoObservable(this)
+    }
+
+    loadMore(){
+        this.walletController.getHistory(this.walletId, ++this._page)
+            .then(transactions => {
+                console.log(transactions)
+                if(transactions && transactions.length){
+                    this._hasMore = true
+                    this._transactions.push(...transactions)
+                }else{
+                    this._hasMore = false
+                }
+            })
+    }
+
+    get hasMore(){
+        return this._hasMore
     }
 
     setTypes(types){
@@ -43,5 +65,13 @@ export default class TransactionStore {
 
     get selectedType() {
         return this._selectedType
+    }
+
+    setPage(page){
+        this._page = page
+    }
+
+    get page() {
+        return this._page
     }
 }

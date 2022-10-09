@@ -1,9 +1,9 @@
 import {api_url} from "./index";
 
-export default class Api {
+class Api {
 
     constructor () {
-
+        this.jwt = false
     }
 
     request = (route, params, method = 'GET', port = '8080') => {
@@ -30,9 +30,7 @@ export default class Api {
         })
     }
 
-    getProducts = (args) => {
-
-    }
-
 }
+
+export const API = new Api()
 

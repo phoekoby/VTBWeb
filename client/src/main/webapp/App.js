@@ -6,6 +6,8 @@ import {observer} from "mobx-react-lite";
 import {Context} from "../../index";
 import {Spinner} from "react-bootstrap";
 import {checkToken} from "./http/userApi";
+import {AUTH} from "./http/API/AuthController";
+import Auth from "./pages/Auth";
 
 
 // const api_url = 'localhost:8080/api/v1'
@@ -57,12 +59,14 @@ localStorage.removeItem('token')
 export const App = observer(() => {
     const {user} = useContext(Context)
     const [loading, setLoading] = useState(false)
-    let authorized = false
+    const [authorized, setAuthorized] = useState(!!AUTH.jwt)
+    console.log({authorized})
     useEffect(() => {
-        checkToken().then(data => {
-            user.setUser(data)
-            user.setIsAuth(true)
-        }).finally(() => setLoading(false))
+        AUTH.authenticate()
+        // checkToken().then(data => {
+        //     user.setUser(data)
+        //     user.setIsAuth(true)
+        // }).finally(() => setLoading(false))
     },[])
     console.log('App')
     
@@ -72,7 +76,13 @@ export const App = observer(() => {
     return (
         <BrowserRouter>
             <NavBar />
-            <AppRouter />
+            {
+                authorized ? (
+                    <AppRouter/>
+                ) : (
+                    <Auth/>
+                )
+            }
         </BrowserRouter>
     );
 })
