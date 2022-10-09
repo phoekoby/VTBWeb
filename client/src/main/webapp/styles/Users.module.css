@@ -30,3 +30,24 @@
 .submit {
     margin-top: 10px;
 }
+
+.profileButton{
+    border-color: orange;
+    margin-right: 10px;
+}
+
+.tipButton {
+    border-color: orange;
+}
+
+.wallets{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.header {
+    margin-left: 20px;
+    margin-right: 5px;
+}

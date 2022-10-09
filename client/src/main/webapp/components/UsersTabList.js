@@ -2,6 +2,7 @@ import React from 'react';
 import {Tab, Tabs} from "react-bootstrap";
 import styles from "../styles/Users.module.css";
 import UsersScroll from "./UsersScroll";
+import LeadersScroll from "./LeadersScroll";
 
 const UsersTabList = () => {
 
@@ -18,7 +19,7 @@ const UsersTabList = () => {
                 <UsersScroll/>
             </Tab>
             <Tab eventKey="longer-tab" title="Таблица лидеров">
-                <h1>Таблица Лидеров</h1>
+                <LeadersScroll/>
             </Tab>
         </Tabs>
     );
