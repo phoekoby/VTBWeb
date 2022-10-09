@@ -7,6 +7,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import ru.vtb.serverrpcmicroservice.config.AuthorityConstants;
+import ru.vtb.serverrpcmicroservice.dto.BuyProductDto;
+import ru.vtb.serverrpcmicroservice.dto.OutTransactionDto;
 import ru.vtb.serverrpcmicroservice.dto.creation.CreateProductDTO;
 import ru.vtb.serverrpcmicroservice.dto.response.ResponseProductDTO;
 import ru.vtb.serverrpcmicroservice.dto.update.UpdateProductDTO;
@@ -60,6 +62,15 @@ public class ProductController {
     ) {
         log.debug("REST Request for getting product by Id {}", id);
         List<ResponseProductDTO> result = productService.getAllProducts(pageable);
+        return ResponseEntity.ok(result);
+    }
+
+    @PostMapping("/v1/product/buy")
+    public ResponseEntity<OutTransactionDto> buyProduct(
+            @RequestBody BuyProductDto buyProductDto
+    ) {
+        log.debug("REST Request for buy product {}", buyProductDto);
+        OutTransactionDto result = productService.buyProduct(buyProductDto);
         return ResponseEntity.ok(result);
     }
 }
