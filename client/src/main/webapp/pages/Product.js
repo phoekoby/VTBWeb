@@ -1,9 +1,15 @@
-import React, {useEffect, useState} from 'react';
-import {Button, Col, Container, Image, Row} from "react-bootstrap";
+import React, {useContext, useEffect, useState} from 'react';
+import {Button, Col, Container, Image, Modal, Row} from "react-bootstrap";
 import styles from "../styles/ProductItem.module.css";
 import {useParams} from "react-router-dom";
+import PurchaseModal from "../components/PurchaseModal";
+import {Context} from "../../../index";
 
 const Product = () => {
+    const {user} = useContext(Context)
+
+
+    const [modalShow, setModalShow] = useState(false);
 
     const [product, setProduct] = useState({info:[]})
     const {id} = useParams()
@@ -28,6 +34,11 @@ const Product = () => {
                <h1 className={styles.text60} >Описание</h1>
                <h2 className={styles.text50} >Параметры товара</h2>
            </Row>
+            <PurchaseModal
+                wallets={user.wallets}
+                show={modalShow}
+                onHide={() => setModalShow(false)}
+            />
         </Container>
     );
 };

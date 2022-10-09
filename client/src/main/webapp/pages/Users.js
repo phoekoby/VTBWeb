@@ -8,7 +8,6 @@ const Users = observer(() => {
     return (
         <Container>
             <UsersTabList/>
-
         </Container>
     );
 });
