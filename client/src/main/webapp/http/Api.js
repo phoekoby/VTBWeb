@@ -20,8 +20,12 @@ class Api {
             xhr.onreadystatechange = function(){
                 if(xhr.readyState === 4){
                     if(xhr.status === 200){
-                        const answer = JSON.parse(xhr.responseText)
-                        resolve(answer)
+                        try{
+                            const answer = JSON.parse(xhr.responseText)
+                            resolve(answer)
+                        }catch (e) {
+                            resolve(xhr.responseText)
+                        }
                     }else{
                         reject('Ошибка при запросе')
                     }
