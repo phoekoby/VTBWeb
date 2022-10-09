@@ -14,6 +14,17 @@ services:
       - internal
 
 
+  rabbit-mq-vtb-web:
+    container_name: rabbit-mq-vtb-web
+    image: phoekoby/vtb-web-rabbitmq:0.0.1-SNAPSHOT
+    environment:
+      RABBITMQ_USERNAME: user
+      RABBITMQ_PASSWORD: user
+    ports:
+      - '15672:15672'
+    networks:
+      - internal
+
 
   vtb-transact-management:
     image: phoekoby/transact-management:0.0.1-SNAPSHOT
@@ -29,6 +40,7 @@ services:
       - vtb-configuration-server
       - vtb-eureka-server
       - postgresql-vtb-web-db
+      - rabbit-mq-vtb-web
 
 
 
@@ -46,6 +58,7 @@ services:
       - vtb-configuration-server
       - vtb-eureka-server
       - postgresql-vtb-web-db
+      - rabbit-mq-vtb-web
 
 
 
@@ -63,6 +76,7 @@ services:
       - vtb-configuration-server
       - vtb-eureka-server
       - postgresql-vtb-web-db
+      - rabbit-mq-vtb-web
 
 
 
@@ -102,6 +116,7 @@ services:
       - vtb-eureka-server
       - vtb-configuration-server
       - postgresql-vtb-web-db
+      - rabbit-mq-vtb-web
 
 
 networks:
