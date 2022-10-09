@@ -1,5 +1,6 @@
 package ru.vtb.serverrpcmicroservice.mapper.creation;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import ru.vtb.serverrpcmicroservice.dto.creation.CreateProductDTO;
 import ru.vtb.serverrpcmicroservice.entity.Category;
@@ -7,13 +8,16 @@ import ru.vtb.serverrpcmicroservice.entity.Cost;
 import ru.vtb.serverrpcmicroservice.entity.Picture;
 import ru.vtb.serverrpcmicroservice.entity.Product;
 import ru.vtb.serverrpcmicroservice.mapper.EntityMapper;
+import ru.vtb.serverrpcmicroservice.service.CategoryService;
 
 import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
 @Component
+@RequiredArgsConstructor
 public class CreateProductMapper implements EntityMapper<Product, CreateProductDTO> {
+    private final CategoryService categoryService;
     @Override
     public Product toEntity(CreateProductDTO createProductDTO) {
         Product product = new Product();
@@ -25,7 +29,11 @@ public class CreateProductMapper implements EntityMapper<Product, CreateProductD
             picture.setProducts(Collections.singleton(product));
             return picture;
         }).collect(Collectors.toList()));
-        product.setCategories(null);
+        product.setCategories(createProductDTO
+                .getCategories()
+                .stream()
+                .map(categoryService::findCategoryById)
+                .collect(Collectors.toList()));
         product.setCost(new Cost(createProductDTO.getRubles(), createProductDTO.getMatic(), createProductDTO.getNft()));
         return null;
     }

@@ -26,9 +26,8 @@ services:
       SPRING_PROFILES_ACTIVE: "prod"
       SPRING_CLOUD_CONFIG_URI: http://vtb-configuration-server:8765
     depends_on:
-      - vtb-configuration-server
-      - vtb-eureka-server
-      - postgresql-vtb-web-db
+      vtb-eureka-server:
+        condition: service_healthy
 
 
 
@@ -43,9 +42,8 @@ services:
       SPRING_PROFILES_ACTIVE: "prod"
       SPRING_CLOUD_CONFIG_URI: http://vtb-configuration-server:8765
     depends_on:
-      - vtb-configuration-server
-      - vtb-eureka-server
-      - postgresql-vtb-web-db
+      vtb-eureka-server:
+        condition: service_healthy
 
 
 
@@ -60,9 +58,8 @@ services:
       SPRING_PROFILES_ACTIVE: "prod"
       SPRING_CLOUD_CONFIG_URI: http://vtb-configuration-server:8765
     depends_on:
-      - vtb-configuration-server
-      - vtb-eureka-server
-      - postgresql-vtb-web-db
+      vtb-eureka-server:
+        condition: service_healthy
 
 
 
@@ -72,6 +69,14 @@ services:
       - internal
     ports:
       - "8765:8765"
+    healthcheck:
+      test: curl --fail http://vtb-configuration-server:8765/eureka-server/prod
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    depends_on:
+      postgresql-vtb-web-db:
+        condition: service_started
 
 
   vtb-eureka-server:
@@ -81,8 +86,14 @@ services:
       SPRING_CLOUD_CONFIG_URI: http://vtb-configuration-server:8765
     networks:
       - internal
+    healthcheck:
+      test: curl --fail http://vtb-eureka-server:8761/
+      interval: 10s
+      timeout: 5s
+      retries: 5
     depends_on:
-      - vtb-configuration-server
+      vtb-configuration-server:
+        condition: service_healthy
     ports:
       - "8761:8761"
 
@@ -99,9 +110,8 @@ services:
     ports:
       - "8080:8080"
     depends_on:
-      - vtb-eureka-server
-      - vtb-configuration-server
-      - postgresql-vtb-web-db
+      vtb-eureka-server:
+        condition: service_healthy
 
 
 networks:
