@@ -5,6 +5,7 @@ import {NavLink, useLocation, useNavigate} from "react-router-dom";
 import {LOGIN_ROUTE, REGISTRATION_ROUTE, SHOP_ROUTE} from "../utils/consts";
 import {Context} from "../../../index";
 import {observer} from "mobx-react-lite";
+import {AUTH} from "../http/API/AuthController";
 
 
 const Auth = observer(() => {
@@ -19,7 +20,8 @@ const Auth = observer(() => {
         try {
             let data
             if(isLogin){
-                //data = await login(email,password)
+                // data = await login(email,password)
+                AUTH.authenticate(email, password)
             }else{
                 // data = await registration(email,password)
                 // console.log(response)

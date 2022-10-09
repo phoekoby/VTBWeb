@@ -10,6 +10,7 @@ class AuthController extends Controller {
     }
 
     authenticate = (login, password) => {
+        console.log('trying to authenticate...')
         return API.request('/authorize', {login, password}, 'POST')
             .catch(err => {
                 console.error(err)
