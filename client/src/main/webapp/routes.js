@@ -1,7 +1,7 @@
 import Admin from "./pages/Admin";
 import {
-    ADMIN_ROUTE,
-    LOGIN_ROUTE,
+    ADMIN_ROUTE, COURSES_ROUTE,
+    LOGIN_ROUTE, NOTIFICATIONS_ROUTE,
     PRODUCT_ROUTE,
     PROFILE_ROUTE,
     REGISTRATION_ROUTE,
@@ -16,16 +16,15 @@ import Product from "./pages/Product";
 import React from "react";
 import Transactions from "./pages/Transactions";
 import Users from "./pages/Users";
+import Notifications from "./pages/Notifications";
+import Courses from "./pages/Courses";
 
 export const authRoutes = [
     {
         path:ADMIN_ROUTE,
         Component: <Admin/>
     },
-    {
-        path:PROFILE_ROUTE,
-        Component: <Profile/>
-    },
+
 
 ]
 
@@ -53,5 +52,20 @@ export const publicRoutes = [
     {
         path:USERS_ROUTE,
         Component: <Users/>
+    },
+
+    {
+        path:COURSES_ROUTE,
+        Component: <Courses/>
+    },
+
+    {
+        path:PROFILE_ROUTE + '/:id',
+        Component: <Profile/>
+    },
+
+    {
+        path:NOTIFICATIONS_ROUTE,
+        Component: <Notifications/>
     },
 ]
