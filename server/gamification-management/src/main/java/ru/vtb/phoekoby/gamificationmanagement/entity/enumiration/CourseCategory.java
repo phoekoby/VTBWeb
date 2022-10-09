@@ -1,4 +1,4 @@
-package ru.vtb.phoekoby.gamificationmanagement.entity.courses;
+package ru.vtb.phoekoby.gamificationmanagement.entity.enumiration;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;

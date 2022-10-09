@@ -24,17 +24,24 @@ import ru.vtb.clientrestmicroservice.dto.moneyApi.ApiResultStatus;
 import ru.vtb.clientrestmicroservice.dto.moneyApi.ApiTransferDto;
 import ru.vtb.clientrestmicroservice.dto.output.Direction;
 import ru.vtb.clientrestmicroservice.dto.output.OutTransactionDto;
-import ru.vtb.clientrestmicroservice.dto.output.OutTransferDto;
 import ru.vtb.clientrestmicroservice.dto.output.TransactionDto;
+import ru.vtb.clientrestmicroservice.dto.outputmessages.ExchangeCompletedEventDto;
+import ru.vtb.clientrestmicroservice.dto.outputmessages.PurchaseCompletedEventDto;
+import ru.vtb.clientrestmicroservice.dto.outputmessages.TransactionStatusChangedEventDto;
 import ru.vtb.clientrestmicroservice.entity.*;
+import ru.vtb.clientrestmicroservice.entity.enumiration.Currency;
 import ru.vtb.clientrestmicroservice.repository.ExchangeRepository;
 import ru.vtb.clientrestmicroservice.repository.PurchaseRepository;
 import ru.vtb.clientrestmicroservice.repository.TransactionRepository;
 import ru.vtb.clientrestmicroservice.repository.WalletRepository;
 import ru.vtb.clientrestmicroservice.service.TransactionRabbitService;
 import ru.vtb.clientrestmicroservice.service.TransactionService;
+import ru.vtb.clientrestmicroservice.service.UserTransferRabbitService;
 
+import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -46,6 +53,7 @@ public class TransactionServiceImpl implements TransactionService {
     private final TransactionRabbitService transactionRabbitService;
     private final ExchangeRepository exchangeRepository;
     private final PurchaseRepository purchaseRepository;
+    private final UserTransferRabbitService userTransferRabbitService;
     @Value("${base.url}")
     private String baseUrl;
     private static final Long COMPANY_WALLET_ID = 1L;
@@ -75,7 +83,8 @@ public class TransactionServiceImpl implements TransactionService {
                     transaction.setTransactionHash(hash);
                     transaction.setFromWallet(fromWallet);
                     transaction.setToWallet(toWallet);
-
+                    transaction.setTransactionStatus(TransactionStatus.PROCESSING);
+                    transaction.setTransactionType(TransactionType.TRANSFER);
                     transactionRepository.save(transaction);
                     transactionRabbitService.sendToControl(TransactionMessageEventDto.builder()
                             .transactionId(transaction.getId())
@@ -122,6 +131,7 @@ public class TransactionServiceImpl implements TransactionService {
                 .toWalletId(COMPANY_WALLET_ID)
                 .build();
         Transaction transaction = doTransferPrivate(firstTransfer);
+        transaction.setTransactionType(TransactionType.EXCHANGE);
         Exchange exchange = new Exchange();
         exchange.setOutTransaction(transaction);
         exchange.setCurrencyFrom(exchangeDto.getFrom());
@@ -146,6 +156,7 @@ public class TransactionServiceImpl implements TransactionService {
                 .amount(purchaseDto.getCost())
                 .build();
         Transaction transaction = doTransferPrivate(transferDto);
+        transaction.setTransactionType(TransactionType.PURCHASE);
         Purchase purchase = new Purchase();
         purchase.setTransaction(transaction);
         purchase.setBuyerUser(transaction.getFromWallet().getUserAccount());
@@ -166,8 +177,8 @@ public class TransactionServiceImpl implements TransactionService {
     public String getStatus(String hash) {
         String needUrl = baseUrl + "transfers/status/" + hash;
         ResponseEntity<ApiResultStatus> forEntity = restTemplate.getForEntity(needUrl, ApiResultStatus.class);
-        if(!forEntity.hasBody() || forEntity.getBody() == null || StringUtils.isBlank(forEntity.getBody().getStatus())){
-            throw new HttpClientErrorException(HttpStatus.BAD_REQUEST, "Error while transaction status requesting");
+        if(forEntity.getStatusCode().equals(HttpStatus.NOT_FOUND) || !forEntity.hasBody() || forEntity.getBody() == null || StringUtils.isBlank(forEntity.getBody().getStatus())){
+            return "NOT_FOUND";
         }
         return forEntity.getBody().getStatus();
     }
@@ -175,19 +186,131 @@ public class TransactionServiceImpl implements TransactionService {
     @Async
     @Override
     public void checkTransaction(TransactionMessageEventDto transactionMessageEventDto) {
-
+        Long transactionId = transactionMessageEventDto.getTransactionId();
+        Optional<Transaction> byId = transactionRepository.findById(transactionId);
+        if(byId.isPresent()){
+            Transaction transaction = byId.get();
+            if(!transaction.getTransactionStatus().equals(TransactionStatus.PROCESSING)){
+                String currentStatus = getStatus(transaction.getTransactionHash());
+                if("Success".equals(currentStatus) || "NOT_FOUND".equals(currentStatus)){
+                    transaction.setTransactionStatus(TransactionStatus.COMPLETED);
+                    userTransferRabbitService.sendToGamificationManagement(TransactionStatusChangedEventDto.builder()
+                            .transactionId(transactionId)
+                            .currTransactionStatus(TransactionStatus.COMPLETED)
+                            .prevTransactionStatus(TransactionStatus.PROCESSING)
+                            .build());
+                }else if("Error".equals(currentStatus)){
+                    transaction.setTransactionStatus(TransactionStatus.ERROR);
+                    userTransferRabbitService.sendToGamificationManagement(TransactionStatusChangedEventDto.builder()
+                            .transactionId(transactionId)
+                            .currTransactionStatus(TransactionStatus.PROCESSING)
+                            .prevTransactionStatus(TransactionStatus.ERROR)
+                            .build());
+                } else if ("Padding".equals(currentStatus)) {
+                    LocalDateTime createDate = transaction.getCreateDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime();
+                    if(createDate.plusDays(1).isBefore(LocalDateTime.now())){
+                        transactionRabbitService.sendToControl(transactionMessageEventDto);
+                    }else{
+                        transaction.setTransactionStatus(TransactionStatus.COMPLETED);
+                        userTransferRabbitService.sendToGamificationManagement(TransactionStatusChangedEventDto.builder()
+                                .transactionId(transactionId)
+                                .currTransactionStatus(TransactionStatus.COMPLETED)
+                                .prevTransactionStatus(TransactionStatus.PROCESSING)
+                                .build());
+                    }
+                }
+                transactionRepository.save(transaction);
+            }
+            transactionRepository.save(transaction);
+        }
     }
 
     @Async
     @Override
     public void checkExchange(ExchangeMessageEventDto exchangeMessageEventDto) {
-
+        Long exchangeId = exchangeMessageEventDto.getExchangeId();
+        Exchange exchange = exchangeRepository.getReferenceById(exchangeId);
+        Long fromTransactionId = exchangeMessageEventDto.getTransactionFrom();
+        Long toTransactionId = exchangeMessageEventDto.getTransactionTo();
+        if (toTransactionId == null) {
+            //check the first one
+            Transaction fromTransaction = transactionRepository.getReferenceById(fromTransactionId);
+            if (fromTransaction.getTransactionStatus().equals(TransactionStatus.PROCESSING)) {
+                String currentStatus = getStatus(fromTransaction.getTransactionHash());
+                if ("Success".equals(currentStatus) || "NOT_FOUND".equals(currentStatus)) {
+                    fromTransaction.setTransactionStatus(TransactionStatus.COMPLETED);
+                    userTransferRabbitService.sendToGamificationManagement(TransactionStatusChangedEventDto.builder()
+                            .transactionId(fromTransactionId)
+                            .currTransactionStatus(TransactionStatus.COMPLETED)
+                            .prevTransactionStatus(TransactionStatus.PROCESSING)
+                            .build());
+                    Transaction transaction = doTransferPrivate(TransferDto.builder()
+                            .amount(exchange.getInTransaction().getAmount())
+                            .currency(exchange.getCurrencyTo())
+                            .currency(exchange.getCurrencyTo())
+                            .fromWalletId(COMPANY_WALLET_ID).build());
+                    transaction.setTransactionType(TransactionType.EXCHANGE);
+                    exchange.setOutTransaction(transaction);
+                    exchangeRepository.save(exchange);
+                } else {
+                    LocalDateTime createDate = fromTransaction.getCreateDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime();
+                    if (createDate.plusDays(1).isBefore(LocalDateTime.now())) {
+                        transactionRabbitService.sendToControl(exchangeMessageEventDto);
+                    }else {
+                        fromTransaction.setTransactionStatus(TransactionStatus.ERROR);
+                    }
+                }
+            }
+        }else{
+            Transaction transactionTo = transactionRepository.getReferenceById(toTransactionId);
+            String currentStatus = getStatus(transactionTo.getTransactionHash());
+            if(transactionTo.getTransactionStatus().equals(TransactionStatus.PROCESSING)){
+                if ("Success".equals(currentStatus) || "NOT_FOUND".equals(currentStatus)) {
+                    transactionTo.setTransactionStatus(TransactionStatus.COMPLETED);
+                    userTransferRabbitService.sendToGamificationManagement(ExchangeCompletedEventDto.builder()
+                            .fromCurrency(exchange.getCurrencyFrom())
+                            .toCurrency(exchange.getCurrencyTo())
+                                    .amount(exchange.getInTransaction().getAmount())
+                                    .userId(exchange.getInTransaction().getFromWallet().getUserAccount().getUserId())
+                            .build());
+                }else{
+                    LocalDateTime createDate = transactionTo.getCreateDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime();
+                    if (createDate.plusDays(1).isBefore(LocalDateTime.now())) {
+                        transactionRabbitService.sendToControl(exchangeMessageEventDto);
+                    }else {
+                        transactionTo.setTransactionStatus(TransactionStatus.ERROR);
+                    }
+                }
+            }
+        }
+        exchangeRepository.save(exchange);
     }
 
     @Async
     @Override
     public void checkPurchase(PurchaseMessageEventDto purchaseMessageEventDto) {
-
+        Long purchaseId = purchaseMessageEventDto.getPurchaseId();
+        Purchase purchase = purchaseRepository.getReferenceById(purchaseId);
+        Transaction transaction = purchase.getTransaction();
+        if(transaction.getTransactionStatus().equals(TransactionStatus.PROCESSING)){
+            String currentStatus = getStatus(transaction.getTransactionHash());
+            if ("Success".equals(currentStatus) || "NOT_FOUND".equals(currentStatus)) {
+                transaction.setTransactionStatus(TransactionStatus.COMPLETED);
+                userTransferRabbitService.sendToGamificationManagement(PurchaseCompletedEventDto.builder()
+                        .purchaseCost(purchase.getCost())
+                        .productId(purchase.getProductId())
+                        .userId(purchase.getBuyerUser().getUserId())
+                        .build());
+            }else{
+                LocalDateTime createDate = transaction.getCreateDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime();
+                if (createDate.plusDays(1).isBefore(LocalDateTime.now())) {
+                    transactionRabbitService.sendToControl(purchaseMessageEventDto);
+                }else {
+                    transaction.setTransactionStatus(TransactionStatus.ERROR);
+                }
+            }
+        }
+        transactionRepository.save(transaction);
     }
 
     @Override

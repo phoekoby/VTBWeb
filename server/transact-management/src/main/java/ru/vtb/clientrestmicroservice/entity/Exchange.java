@@ -5,6 +5,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 import org.hibernate.Hibernate;
+import ru.vtb.clientrestmicroservice.entity.enumiration.Currency;
 
 import javax.persistence.*;
 import java.util.Objects;
@@ -23,9 +24,6 @@ public class Exchange extends BaseEntity {
     @OneToOne
     @JoinColumn(name = "out_transaction_id")
     private Transaction outTransaction;
-
-    @Column(name = "hash")
-    private String hashCode;
 
     @Column(name = "currency_from")
     private Currency currencyFrom;

@@ -17,6 +17,7 @@ import styles from "../styles/Navbar.module.css";
 
 const NavBar = observer(() => {
     const {user} = useContext(Context)
+    console.log(user)
     const navigate = useNavigate()
     const logOut = () => {
         user.setIsAuth(false)
@@ -55,7 +56,7 @@ const NavBar = observer(() => {
                         </Nav>
                     }
                     {user.isAuth ?
-                        <NavLink to={PROFILE_ROUTE + '/' + user.id}>
+                        <NavLink to={PROFILE_ROUTE + '/' + user.user.id}>
                             <Image className={styles.profile} src={profile}/>
                         </NavLink>
                         :

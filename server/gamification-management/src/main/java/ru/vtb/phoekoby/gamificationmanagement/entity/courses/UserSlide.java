@@ -5,11 +5,12 @@ import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import ru.vtb.phoekoby.gamificationmanagement.entity.BaseEntity;
 import ru.vtb.phoekoby.gamificationmanagement.entity.PlayUserAccount;
+import ru.vtb.phoekoby.gamificationmanagement.entity.enumiration.SlideStatus;
 
 import javax.persistence.*;
 
 @Entity
-@Table(name = "user_slide", schema = "transaction_management")
+@Table(name = "user_slide", schema = "gamification_management")
 @Getter
 @Setter
 @RequiredArgsConstructor
