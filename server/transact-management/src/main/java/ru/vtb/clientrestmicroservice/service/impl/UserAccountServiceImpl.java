@@ -28,4 +28,9 @@ public class UserAccountServiceImpl implements UserAccountService {
         }
         return userAccount;
     }
+
+    @Override
+    public UserAccount createUserAccount(Long userId) {
+        return getUserAccount(userId);
+    }
 }

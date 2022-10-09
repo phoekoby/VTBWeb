@@ -24,9 +24,6 @@ public class Exchange extends BaseEntity {
     @JoinColumn(name = "out_transaction_id")
     private Transaction outTransaction;
 
-    @Column(name = "hash")
-    private String hashCode;
-
     @Column(name = "currency_from")
     private Currency currencyFrom;
 
