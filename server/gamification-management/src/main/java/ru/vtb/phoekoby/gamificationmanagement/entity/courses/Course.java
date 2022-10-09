@@ -13,7 +13,7 @@ import javax.persistence.Table;
 import java.util.List;
 
 @Entity
-@Table(name = "slide", schema = "transaction_management")
+@Table(name = "course", schema = "gamification_management")
 @Getter
 @Setter
 @RequiredArgsConstructor

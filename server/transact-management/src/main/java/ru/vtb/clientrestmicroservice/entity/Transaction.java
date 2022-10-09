@@ -4,6 +4,9 @@ import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
+import ru.vtb.clientrestmicroservice.entity.enumiration.Currency;
+import ru.vtb.clientrestmicroservice.entity.enumiration.TransactionStatus;
+import ru.vtb.clientrestmicroservice.entity.enumiration.TransactionType;
 
 import javax.persistence.*;
 
