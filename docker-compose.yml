@@ -76,7 +76,7 @@ services:
 
 
   vtb-configuration-server:
-    image: phoekoby/configuration:0.0.2-SNAPSHOT
+    image: phoekoby/configuration:0.0.3-SNAPSHOT
     networks:
       - internal
     ports:
@@ -92,7 +92,7 @@ services:
 
 
   vtb-eureka-server:
-    image: phoekoby/eureka-server:0.0.1-SNAPSHOT
+    image: phoekoby/eureka-server:0.0.2-SNAPSHOT
     environment:
       SPRING_PROFILES_ACTIVE: "prod"
       SPRING_CLOUD_CONFIG_URI: http://vtb-configuration-server:8765
