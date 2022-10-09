@@ -13,6 +13,7 @@ const Courses = () => {
         <Container className={styles.container}>
             {courses.courses.map(courseItem =>
                 <CourseCard
+                    id={courseItem.id}
                     title={courseItem.title}
                     description={courseItem.description}
                 />

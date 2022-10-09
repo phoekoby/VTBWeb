@@ -1,5 +1,5 @@
 
-class Controller {
+export default class Controller {
 
     // api - http/Api
     constructor(api) {

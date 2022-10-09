@@ -1,5 +1,6 @@
+import Controller from "./Controller";
 
-class WalletController extends Controller {
+export default class WalletController extends Controller {
 
     constructor(api) {
         super(api)
