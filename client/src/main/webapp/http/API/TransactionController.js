@@ -1,5 +1,6 @@
+import Controller from "./Controller";
 
-class TransactionController extends Controller {
+export default class TransactionController extends Controller {
 
     constructor(api) {
         super(api)
@@ -9,7 +10,7 @@ class TransactionController extends Controller {
     makeTransfer = (fromWalletId, toWalletId, currency, amount) => {
         const transfer = {fromWalletId, toWalletId, currency, amount} // здесь появится второй amount в другой валюте
         return new Promise((resolve, reject) => {
-            this.api.request('/transfer', transfer, 'POST', this.port)
+            this.api.request('/transaction/transfer', transfer, 'POST', this.port)
                 .catch(err => {
                     console.error(err)
                     resolve(false)
@@ -26,7 +27,7 @@ class TransactionController extends Controller {
     makeExchange = (fromWalletId, toWalletId, from, to, amount) => {
         const exchange = {fromWalletId, toWalletId, from, to, amount}
         return new Promise((resolve, reject) => {
-            this.api.request('/exchange', exchange, 'POST', this.port)
+            this.api.request('/transaction/exchange', exchange, 'POST', this.port)
                 .catch(err => {
                     console.error(err)
                     resolve(false)
@@ -42,7 +43,7 @@ class TransactionController extends Controller {
     makePurchase = (fromWalletId, toWalletId, productId, currency, amount) => {
         const purchase = {fromWalletId, toWalletId, productId, currency, amount}
         return new Promise((resolve, reject) => {
-            this.api.request('/purchase', purchase, 'POST', this.port)
+            this.api.request('/transaction/purchase', purchase, 'POST', this.port)
                 .catch(err => {
                     console.error(err)
                     resolve(false)
@@ -55,7 +56,7 @@ class TransactionController extends Controller {
     }
 
     getTransactionInfo = (hash) => {
-        return this.api.request('/' + hash, '', 'GET', this.port)
+        return this.api.request('/transaction/' + hash, '', 'GET', this.port)
     }
 
 }

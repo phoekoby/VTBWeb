@@ -2,8 +2,21 @@ version: '3.8'
 services:
   rabbit-mq-vtb-web:
     container_name: rabbit-mq-vtb-web
-    image: bitnami/rabbitmq:3-management
+    image:  phoekoby/vtb-web-rabbitmq:0.0.1-SNAPSHOT
+    environment:
+      RABBITMQ_USERNAME: user
+      RABBITMQ_PASSWORD: user
     ports:
       - '15672:15672'
-    volumes:
-      - 'rabbitmqstats_data:/bitnami'
+
+
+
+
+#services:
+#  rabbit-mq-vtb-web:
+#    container_name: rabbit-mq-vtb-web
+#    image: bitnami/rabbitmq:latest
+#    ports:
+#      - '15672:15672'
+##    volumes:
+##      - 'rabbitmqstats_dat
