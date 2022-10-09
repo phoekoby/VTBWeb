@@ -10,7 +10,7 @@ import ru.vtb.clientrestmicroservice.dto.message.PurchaseMessageEventDto;
 @RequiredArgsConstructor
 public class PurchaseConsumer {
 
-    @RabbitListener
+    //@RabbitListener
     public void onMessage(PurchaseMessageEventDto purchaseMessageEventDto){
        // String status = transactionService.getStatus(transactionMessageEventDto.getHash());
       /*  switch (status){
