@@ -5,6 +5,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 import org.hibernate.Hibernate;
+import ru.vtb.clientrestmicroservice.entity.enumiration.Currency;
 
 import javax.persistence.*;
 import java.util.Objects;

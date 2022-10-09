@@ -18,6 +18,7 @@ public class Purchase extends BaseEntity {
     @ManyToOne
     @JoinColumn(name = "prev_owner_user_account_id")
     private UserAccount prevOwnerUser;
+
     @ManyToOne
     @JoinColumn(name = "buyer_user_account_id")
     private UserAccount buyerUser;

@@ -1,5 +1,6 @@
 CREATE schema user_management;
 CREATE schema transaction_management;
+CREATE schema gamification_management;
 CREATE schema market_management;
 
 
@@ -88,62 +89,10 @@ CREATE INDEX role_privileges_index on user_management.roles_privileges
 CREATE TABLE transaction_management.user_account
 (
     id                 BIGSERIAL PRIMARY KEY,
-    daily_multiply     float4    NOT NULL DEFAULT 1.104,
-    day_streak         int4      NOT NULL DEFAULT 0,
     user_id            int8      NOT NULL,
     last_activity_date timestamp NOT NULL DEFAULT now(),
     create_date        timestamp NOT NULL DEFAULT now(),
     update_date        timestamp NOT NULL DEFAULT now()
-);
-
-CREATE TABLE transaction_management.course
-(
-    id           BIGSERIAL PRIMARY KEY,
-    ord          int8      NOT NULL,
-    course_prize float4    NOT NULL,
-    create_date  timestamp NOT NULL DEFAULT now(),
-    update_date  timestamp NOT NULL DEFAULT now()
-);
-
-CREATE TABLE transaction_management.slide
-(
-    id          BIGSERIAL PRIMARY KEY,
-    name        varchar(255)                                       NOT NULL,
-    text        varchar(255)                                       NOT NULL,
-    course_id   int8 references transaction_management.course (id) NOT NULL,
-    ord         int8                                               NOT NULL,
-    create_date timestamp                                          NOT NULL DEFAULT now(),
-    update_date timestamp                                          NOT NULL DEFAULT now()
-);
-
-CREATE TABLE transaction_management.user_course
-(
-    id                 BIGSERIAL PRIMARY KEY,
-    user_account_id    int8 references transaction_management.user_account (id) NOT NULL,
-    course_id          int8 references transaction_management.course (id)       NOT NULL,
-    course_user_status varchar(30)                                              NOT NULL,
-    create_date        timestamp                                                NOT NULL DEFAULT now(),
-    update_date        timestamp                                                NOT NULL DEFAULT now()
-);
-
-CREATE TABLE transaction_management.user_slide
-(
-    id                BIGSERIAL PRIMARY KEY,
-    user_account_id   int8 references transaction_management.user_account (id) NOT NULL,
-    slide_id          int8 references transaction_management.slide (id)        NOT NULL,
-    slide_user_status varchar(30)                                              NOT NULL,
-    user_course_id    int8 references transaction_management.user_course (id)  NOT NULL,
-    create_date       timestamp                                                NOT NULL DEFAULT now(),
-    update_date       timestamp                                                NOT NULL DEFAULT now()
-);
-
-CREATE TABLE transaction_management.user_products
-(
-    id              BIGSERIAL PRIMARY KEY,
-    user_account_id int8 references transaction_management.user_account (id) NOT NULL,
-    product_id      int8                                                     NOT NULL,
-    create_date     timestamp                                                NOT NULL DEFAULT now(),
-    update_date     timestamp                                                NOT NULL DEFAULT now()
 );
 
 CREATE TABLE transaction_management.wallet
@@ -175,7 +124,6 @@ CREATE TABLE transaction_management.exchange
     id                 BIGSERIAL PRIMARY KEY,
     in_transaction_id  int8 references transaction_management.transaction (id) NOT NULL,
     out_transaction_id int8 references transaction_management.transaction (id) NOT NULL,
-    hash               varchar(255)                                            NOT NULL,
     currency_from      varchar(10)                                             NOT NULL,
     currency_to        varchar(10)                                             NOT NULL,
     create_date        timestamp                                               NOT NULL DEFAULT now(),
@@ -194,7 +142,70 @@ CREATE TABLE transaction_management.purchase
     update_date                timestamp                                                NOT NULL DEFAULT now()
 );
 
-CREATE TABLE transaction_management.nft_picture
+--------------------------------------------------------------------------------------------------
+--------------------------------------------------------------------------------------------------
+
+
+CREATE TABLE gamification_management.play_user_account
+(
+    id             BIGSERIAL PRIMARY KEY,
+    daily_multiply float4    NOT NULL DEFAULT 1.104,
+    day_streak     int4      NOT NULL DEFAULT 0,
+    create_date    timestamp NOT NULL DEFAULT now(),
+    update_date    timestamp NOT NULL DEFAULT now()
+);
+
+CREATE TABLE gamification_management.user_product
+(
+    id                   BIGSERIAL PRIMARY KEY,
+    product_id           int8      NOT NULL,
+    play_user_account_id int8      NOT NULL,
+    create_date          timestamp NOT NULL DEFAULT now(),
+    update_date          timestamp NOT NULL DEFAULT now()
+);
+
+CREATE TABLE gamification_management.course
+(
+    id           BIGSERIAL PRIMARY KEY,
+    ord          int4      NOT NULL,
+    course_prize float4    NOT NULL,
+    create_date  timestamp NOT NULL DEFAULT now(),
+    update_date  timestamp NOT NULL DEFAULT now()
+);
+
+CREATE TABLE gamification_management.slide
+(
+    id          BIGSERIAL PRIMARY KEY,
+    name        varchar(255)                                        NOT NULL,
+    text        varchar(255)                                        NOT NULL,
+    course_id   int8 references gamification_management.course (id) NOT NULL,
+    ord         int4                                                NOT NULL,
+    create_date timestamp                                           NOT NULL DEFAULT now(),
+    update_date timestamp                                           NOT NULL DEFAULT now()
+);
+
+CREATE TABLE gamification_management.user_course
+(
+    id                 BIGSERIAL PRIMARY KEY,
+    user_account_id    int8 references gamification_management.play_user_account (id) NOT NULL,
+    course_id          int8 references gamification_management.course (id)            NOT NULL,
+    course_user_status varchar(30)                                                    NOT NULL,
+    create_date        timestamp                                                      NOT NULL DEFAULT now(),
+    update_date        timestamp                                                      NOT NULL DEFAULT now()
+);
+
+CREATE TABLE gamification_management.user_slide
+(
+    id                BIGSERIAL PRIMARY KEY,
+    user_account_id   int8 references gamification_management.play_user_account (id) NOT NULL,
+    slide_id          int8 references gamification_management.slide (id)             NOT NULL,
+    slide_user_status varchar(30)                                                    NOT NULL,
+    user_course_id    int8 references gamification_management.user_course (id)       NOT NULL,
+    create_date       timestamp                                                      NOT NULL DEFAULT now(),
+    update_date       timestamp                                                      NOT NULL DEFAULT now()
+);
+
+CREATE TABLE gamification_management.nft_picture
 (
     id          BIGSERIAL PRIMARY KEY,
     url         varchar(255) NOT NULL,
@@ -202,37 +213,18 @@ CREATE TABLE transaction_management.nft_picture
     update_date timestamp    NOT NULL DEFAULT now()
 );
 
-CREATE TABLE transaction_management.category
+CREATE TABLE gamification_management.slides_pictures
 (
-    id          BIGSERIAL PRIMARY KEY,
-    name        varchar(255) NOT NULL,
-    create_date timestamp    NOT NULL DEFAULT now(),
-    update_date timestamp    NOT NULL DEFAULT now()
+    slide_id   int8 references gamification_management.slide (id),
+    picture_id int8 references gamification_management.nft_picture (id)
 );
 
-CREATE TABLE transaction_management.course_category
-(
-    course_id   int8 references transaction_management.course (id),
-    category_id int8 references transaction_management.category (id)
-);
-
-CREATE INDEX course_category_index on transaction_management.course_category
-    (
-     course_id,
-     category_id
-        );
-
-CREATE TABLE transaction_management.slides_pictures
-(
-    slide_id   int8 references transaction_management.slide (id),
-    picture_id int8 references transaction_management.nft_picture (id)
-);
-
-CREATE INDEX slides_pictures_index on transaction_management.slides_pictures
+CREATE INDEX slides_pictures_index on gamification_management.slides_pictures
     (
      slide_id,
      picture_id
         );
+
 
 --------------------------------------------------------------------------------------------------
 --------------------------------------------------------------------------------------------------
@@ -248,8 +240,8 @@ CREATE TABLE market_management.picture
 CREATE TABLE market_management.product
 (
     id          BIGSERIAL PRIMARY KEY,
-    description text,
     name        varchar(255) NOT NULL,
+    description text,
     create_date timestamp    NOT NULL DEFAULT now(),
     update_date timestamp    NOT NULL DEFAULT now()
 );

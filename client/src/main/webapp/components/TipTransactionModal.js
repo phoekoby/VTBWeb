@@ -5,6 +5,7 @@ import axios from "axios";
 import {api_url} from "../http";
 import {Context} from "../../../index";
 import DropdownItem from "react-bootstrap/DropdownItem";
+import TransactionController from "../http/API/TransactionController";
 
 const TipTransactionModal = (props) => {
     const {receiver,id, receiverWallets} = props
@@ -18,14 +19,12 @@ const TipTransactionModal = (props) => {
 
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
+    const transactionController = new TransactionController()
 
 
-    const fetchMoney = async(event,id,amount,receiver,firstWalletId,secondWalletId) => {
+    const fetchMoney = async(event,currency,amount,firstWalletId,secondWalletId) => {
         event.preventDefault()
-        axios.post(api_url + '/users/tip', JSON.stringify({amount, id,receiver,firstWalletId,secondWalletId})).then(data => {
-            handleShow()
-        })
-        handleShow()
+        transactionController.makeTransfer(firstWalletId,secondWalletId, currency,amount).then(() => handleShow())
     }
 
     return (
@@ -53,7 +52,7 @@ const TipTransactionModal = (props) => {
                     </Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
-                    <Form onSubmit={(e) => fetchMoney(e,id, amount, receiver.id,firstWallet,secondWallet.id)}>
+                    <Form onSubmit={(e) => fetchMoney(e,currency, amount,firstWallet,secondWallet.id)}>
                         <Form.Group controlId="formWallets">
                             <DropdownButton
                                 style={{marginBottom:10}}

@@ -3,8 +3,8 @@ package ru.vtb.clientrestmicroservice.dto.output;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
-import ru.vtb.clientrestmicroservice.entity.Currency;
-import ru.vtb.clientrestmicroservice.entity.TransactionType;
+import ru.vtb.clientrestmicroservice.entity.enumiration.Currency;
+import ru.vtb.clientrestmicroservice.entity.enumiration.TransactionType;
 
 @Data
 @AllArgsConstructor

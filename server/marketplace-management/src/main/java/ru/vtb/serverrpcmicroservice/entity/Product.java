@@ -21,6 +21,7 @@ public class Product extends BaseEntity implements Serializable {
 
     @Column(name = "description")
     private String description;
+
     @OneToOne(mappedBy = "product", cascade = CascadeType.PERSIST)
 //    @JoinColumn(name = "cost_id")
     private Cost cost;

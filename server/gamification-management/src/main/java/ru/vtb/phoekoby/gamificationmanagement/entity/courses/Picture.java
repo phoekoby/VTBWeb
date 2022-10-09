@@ -11,7 +11,7 @@ import javax.persistence.Entity;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "nft_picture", schema = "transaction_management")
+@Table(name = "nft_picture", schema = "gamification_management")
 @Getter
 @Setter
 @RequiredArgsConstructor

@@ -21,6 +21,9 @@ public class UserAccount extends BaseEntity{
     @Column(name = "user_id")
     private Long userId;
 
+    @Column(name = "last_activity_date")
+    private Date lastActivityDate;
+
     @OneToMany(mappedBy = "buyerUser", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Purchase> myPurchases;
 
