@@ -20,6 +20,7 @@
     </properties>
 
     <modules>
+        <module>client-management</module>
         <module>transact-management</module>
         <module>marketplace-management</module>
         <module>gamification-management</module>
