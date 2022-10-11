@@ -4,7 +4,7 @@ package ru.vtb.clientrestmicroservice.dto.outputmessages;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
-import ru.vtb.clientrestmicroservice.entity.Currency;
+import ru.vtb.clientrestmicroservice.entity.enumiration.Currency;
 
 @Data
 @Builder

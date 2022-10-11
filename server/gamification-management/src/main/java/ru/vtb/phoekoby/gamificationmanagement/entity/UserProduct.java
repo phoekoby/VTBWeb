@@ -4,9 +4,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 import java.util.Collection;
 
@@ -16,9 +14,11 @@ import java.util.Collection;
 @Setter
 @NoArgsConstructor
 public class UserProduct extends BaseEntity{
-    @Column(name = "product_id")
-    private Long products;
 
-    @Column(name = "play_user_account_id")
-    private Long play_user_account;
+    @Column(name = "product_id")
+    private Long product;
+
+    @ManyToOne
+    @JoinColumn(name = "play_user_account_id")
+    private PlayUserAccount play_user_account;
 }

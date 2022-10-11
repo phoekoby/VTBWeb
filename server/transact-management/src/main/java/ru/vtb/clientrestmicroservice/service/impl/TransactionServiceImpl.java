@@ -30,6 +30,8 @@ import ru.vtb.clientrestmicroservice.dto.outputmessages.PurchaseCompletedEventDt
 import ru.vtb.clientrestmicroservice.dto.outputmessages.TransactionStatusChangedEventDto;
 import ru.vtb.clientrestmicroservice.entity.*;
 import ru.vtb.clientrestmicroservice.entity.enumiration.Currency;
+import ru.vtb.clientrestmicroservice.entity.enumiration.TransactionStatus;
+import ru.vtb.clientrestmicroservice.entity.enumiration.TransactionType;
 import ru.vtb.clientrestmicroservice.repository.ExchangeRepository;
 import ru.vtb.clientrestmicroservice.repository.PurchaseRepository;
 import ru.vtb.clientrestmicroservice.repository.TransactionRepository;
