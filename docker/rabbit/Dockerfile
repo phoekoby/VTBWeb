@@ -1,3 +1,4 @@
 FROM bitnami/rabbitmq:latest
-COPY ./init/definitions.json /opt/
-COPY ./init/rabbitmq.conf /etc/rabbitmq/
+ADD definitions.json /etc/rabbitmq/
+RUN rabbitmqctl import_definitions /etc/rabbitmq/definitions.json
+EXPOSE 4369 5672 25672 15672
